@@ -18,7 +18,7 @@ SMODS.Joker{ --Handout
     },
     pos = {
         x = 1,
-        y = 1
+        y = 0
     },
     display_size = {
         w = 71 * 1, 
@@ -34,11 +34,12 @@ SMODS.Joker{ --Handout
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
+    
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval  then
-                return {
-                    dollars = G.GAME.current_round.hands_left
-                }
-        end
+    if context.end_of_round and context.game_over == false and context.main_eval  then
+        return {
+            dollars = G.GAME.current_round.hands_left
+        }
     end
+end
 }

@@ -17,7 +17,7 @@ SMODS.Joker{ --Earthquake
         }
     },
     pos = {
-        x = 8,
+        x = 3,
         y = 0
     },
     display_size = {

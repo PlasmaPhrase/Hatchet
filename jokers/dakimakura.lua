@@ -16,8 +16,8 @@ SMODS.Joker{ --Dakimakura
         }
     },
     pos = {
-        x = 5,
-        y = 0
+        x = 7,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -32,14 +32,15 @@ SMODS.Joker{ --Dakimakura
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  and not context.blueprint then
             if next(context.poker_hands["Flush"]) then
                 assert(SMODS.change_base(context.other_card, pseudorandom_element(SMODS.Suits, 'edit_card_suit').key, nil))
                 return {
                     message = "Card Modified!"
-                }
+                    }
+                end
             end
         end
-    end
 }

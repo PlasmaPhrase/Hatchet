@@ -19,7 +19,7 @@ SMODS.Joker{ --Diary Entry
         }
     },
     pos = {
-        x = 7,
+        x = 8,
         y = 0
     },
     display_size = {
@@ -35,45 +35,46 @@ SMODS.Joker{ --Diary Entry
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-                return {
-                    chips = card.ability.extra.chipvar
-                }
+            return {
+                chips = card.ability.extra.chipvar
+            }
         end
         if context.before and context.cardarea == G.jokers  and not context.blueprint then
             if not ((function()
-    local current_played = G.GAME.hands[context.scoring_name].played or 0
-    for handname, values in pairs(G.GAME.hands) do
-        if handname ~= context.scoring_name and values.played > current_played and values.visible then
-            return false
-        end
-    end
-    return true
-end)()) then
-                return {
-                    func = function()
-                    card.ability.extra.chipvar = (card.ability.extra.chipvar) + 30
+                local current_played = G.GAME.hands[context.scoring_name].played or 0
+                for handname, values in pairs(G.GAME.hands) do
+                    if handname ~= context.scoring_name and values.played > current_played and values.visible then
+                        return false
+                        end
+                    end
                     return true
-                end
-                }
-            elseif (function()
-    local current_played = G.GAME.hands[context.scoring_name].played or 0
-    for handname, values in pairs(G.GAME.hands) do
-        if handname ~= context.scoring_name and values.played > current_played and values.visible then
-            return false
-        end
-    end
-    return true
-end)() then
-                return {
-                    func = function()
-                    card.ability.extra.chipvar = 0
-                    return true
-                end,
-                    message = "Reset!"
-                }
-            end
-        end
-    end
+                    end)()) then
+                        return {
+                            func = function()
+                                card.ability.extra.chipvar = (card.ability.extra.chipvar) + 30
+                                return true
+                                end
+                            }
+                        elseif (function()
+                            local current_played = G.GAME.hands[context.scoring_name].played or 0
+                            for handname, values in pairs(G.GAME.hands) do
+                                if handname ~= context.scoring_name and values.played > current_played and values.visible then
+                                    return false
+                                    end
+                                end
+                                return true
+                                end)() then
+                                    return {
+                                        func = function()
+                                            card.ability.extra.chipvar = 0
+                                            return true
+                                            end,
+                                            message = "Reset!"
+                                        }
+                                    end
+                                end
+                            end
 }

@@ -16,8 +16,8 @@ SMODS.Joker{ --D20
         }
     },
     pos = {
-        x = 4,
-        y = 0
+        x = 9,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -39,13 +39,14 @@ SMODS.Joker{ --D20
         return {vars = {new_numerator, new_denominator}}
     end,
 
+    
     calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval  then
-            if true then
-                if SMODS.pseudorandom_probability(card, 'group_0_bb3f3a02', 1, card.ability.extra.odds, 'j_hatchet_d20', false) then
-              SMODS.calculate_effect({dollars = card.ability.extra.dollars}, card)
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Rolled a 20!", colour = G.C.MONEY})
-          end
+    if context.end_of_round and context.game_over == false and context.main_eval  then
+        if true then
+            if SMODS.pseudorandom_probability(card, 'group_0_bb3f3a02', 1, card.ability.extra.odds, 'j_hatchet_d20', false) then
+                    SMODS.calculate_effect({dollars = card.ability.extra.dollars}, card)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Rolled a 20!", colour = G.C.MONEY})
+                end
             end
         end
     end

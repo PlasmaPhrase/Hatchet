@@ -21,7 +21,7 @@ SMODS.Joker{ --Blue Shoes
         }
     },
     pos = {
-        x = 3,
+        x = 2,
         y = 0
     },
     display_size = {
@@ -38,20 +38,21 @@ SMODS.Joker{ --Blue Shoes
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
+    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             if G.GAME.hands[context.scoring_name] and G.GAME.hands[context.scoring_name].played_this_round > 1 then
                 return {
                     func = function()
-                card:start_dissolve()
-                return true
-            end
-                }
-            else
-                return {
-                    chips = card.ability.extra.chips
-                }
+                        card:start_dissolve()
+                        return true
+                        end
+                    }
+                else
+                    return {
+                        chips = card.ability.extra.chips
+                    }
+                end
             end
         end
-    end
 }

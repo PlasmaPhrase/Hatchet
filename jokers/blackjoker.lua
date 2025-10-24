@@ -19,7 +19,7 @@ SMODS.Joker{ --Black Joker
         }
     },
     pos = {
-        x = 1,
+        x = 9,
         y = 0
     },
     display_size = {
@@ -44,43 +44,44 @@ SMODS.Joker{ --Black Joker
           and true
       end,
 
+    
     calculate = function(self, card, context)
         if context.selling_self  then
-                return {
-                    func = function()
-                local available_jokers = {}
-                for i, joker in ipairs(G.jokers.cards) do
-                    table.insert(available_jokers, joker)
-                end
-                local target_joker = #available_jokers > 0 and pseudorandom_element(available_jokers, pseudoseed('copy_joker')) or nil
-                
-                if target_joker then
-                    G.E_MANAGER:add_event(Event({
+            return {
+                func = function()
+                    local available_jokers = {}
+                    for i, joker in ipairs(G.jokers.cards) do
+                        table.insert(available_jokers, joker)
+                    end
+                    local target_joker = #available_jokers > 0 and pseudorandom_element(available_jokers, pseudoseed('copy_joker')) or nil
+                    
+                    if target_joker then
+                        G.E_MANAGER:add_event(Event({
                         func = function()
                             local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
-                        copied_joker:set_edition("e_negative", true)
+                            copied_joker:set_edition("e_negative", true)
                             
                             copied_joker:add_to_deck()
                             G.jokers:emplace(copied_joker)
                             return true
-                        end
-                    }))
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
-                end
+                            end
+                        }))
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
+                    end
                     return true
-                end,
+                    end,
                     extra = {
-                        func = function()
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.hands).." Hand", colour = G.C.RED})
-                
-        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
-        ease_hands_played(-card.ability.extra.hands)
-        
-                return true
-            end,
+                    func = function()
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.hands).." Hand", colour = G.C.RED})
+                        
+                        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+                        ease_hands_played(-card.ability.extra.hands)
+                        
+                        return true
+                        end,
                         colour = G.C.GREEN
-                        }
+                    }
                 }
+            end
         end
-    end
 }

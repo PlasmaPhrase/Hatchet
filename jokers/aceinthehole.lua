@@ -15,8 +15,8 @@ SMODS.Joker{ --Ace in the Hole
         }
     },
     pos = {
-        x = 0,
-        y = 0
+        x = 7,
+        y = 2
     },
     display_size = {
         w = 71 * 1, 
@@ -31,13 +31,14 @@ SMODS.Joker{ --Ace in the Hole
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.hand and not context.end_of_round  then
-            if context.other_card:get_id() == 14 then
-                return {
-                    chips = card.ability.extra.chips
-                }
-            end
+    if context.individual and context.cardarea == G.hand and not context.end_of_round  then
+        if context.other_card:get_id() == 14 then
+            return {
+                chips = card.ability.extra.chips
+            }
         end
     end
+end
 }

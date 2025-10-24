@@ -16,8 +16,8 @@ SMODS.Joker{ --Dawn
         }
     },
     pos = {
-        x = 6,
-        y = 0
+        x = 1,
+        y = 2
     },
     display_size = {
         w = 71 * 1, 
@@ -33,6 +33,7 @@ SMODS.Joker{ --Dawn
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
+    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             if G.GAME.current_round.hands_played == 0 then

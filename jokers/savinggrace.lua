@@ -21,7 +21,7 @@ SMODS.Joker{ --Saving Grace
     },
     pos = {
         x = 5,
-        y = 2
+        y = 0
     },
     display_size = {
         w = 71 * 1, 
@@ -36,21 +36,22 @@ SMODS.Joker{ --Saving Grace
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.jokers  then
             if G.GAME.current_round.hands_left == 0 then
                 local target_hand = (context.scoring_name or "High Card")
                 return {
                     level_up = card.ability.extra.levels,
-      level_up_hand = target_hand,
+                    level_up_hand = target_hand,
                     message = localize('k_level_up_ex'),
                     extra = {
-                        func = function()
-                card:start_dissolve()
-                return true
-            end,
+                    func = function()
+                        card:start_dissolve()
+                        return true
+                        end,
                         colour = G.C.RED
-                        }
+                    }
                 }
             end
         end

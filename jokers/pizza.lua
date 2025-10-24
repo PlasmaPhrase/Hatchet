@@ -20,7 +20,7 @@ SMODS.Joker{ --Pizza
         }
     },
     pos = {
-        x = 1,
+        x = 2,
         y = 2
     },
     display_size = {
@@ -42,26 +42,27 @@ SMODS.Joker{ --Pizza
         return {vars = {card.ability.extra.pizza}}
     end,
 
+    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             if (card.ability.extra.pizza or 0) >= 8 then
                 return {
                     func = function()
-                card:start_dissolve()
-                return true
+                        card:start_dissolve()
+                        return true
+                        end
+                    }
+                else
+                    card.ability.extra.pizza = (card.ability.extra.pizza) + 1
+                    return {
+                        chips = card.ability.extra.chips
+                    }
+                end
             end
-                }
-            else
-                card.ability.extra.pizza = (card.ability.extra.pizza) + 1
-                return {
-                    chips = card.ability.extra.chips
-                }
-            end
-        end
-        if context.after and context.cardarea == G.jokers  then
+            if context.after and context.cardarea == G.jokers  then
                 return {
                     message = "-1 Slice"
                 }
+            end
         end
-    end
 }

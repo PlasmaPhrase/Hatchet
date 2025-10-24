@@ -16,8 +16,8 @@ SMODS.Joker{ --Blue Card
         }
     },
     pos = {
-        x = 2,
-        y = 0
+        x = 6,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -37,20 +37,21 @@ SMODS.Joker{ --Blue Card
         return {vars = {card.ability.extra.chipsvar}}
     end,
 
+    
     calculate = function(self, card, context)
         if context.skipping_booster  and not context.blueprint then
-                return {
-                    func = function()
+            return {
+                func = function()
                     card.ability.extra.chipsvar = (card.ability.extra.chipsvar) + 10
                     return true
-                end,
+                    end,
                     message = "+10"
                 }
-        end
-        if context.cardarea == G.jokers and context.joker_main  then
+            end
+            if context.cardarea == G.jokers and context.joker_main  then
                 return {
                     chips = card.ability.extra.chipsvar
                 }
+            end
         end
-    end
 }

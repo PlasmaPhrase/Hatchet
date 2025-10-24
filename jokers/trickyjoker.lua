@@ -18,8 +18,8 @@ SMODS.Joker{ --Tricky Joker
         }
     },
     pos = {
-        x = 8,
-        y = 2
+        x = 4,
+        y = 1
     },
     display_size = {
         w = 71 * 1, 
@@ -35,15 +35,16 @@ SMODS.Joker{ --Tricky Joker
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
+    
     calculate = function(self, card, context)
         if context.setting_blind  then
-                return {
-                    func = function()
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Set to "..tostring(G.GAME.round_resets.discards).." Hands", colour = G.C.BLUE})
-                G.GAME.current_round.hands_left = G.GAME.round_resets.discards
-                return true
-            end
+            return {
+                func = function()
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Set to "..tostring(G.GAME.round_resets.discards).." Hands", colour = G.C.BLUE})
+                    G.GAME.current_round.hands_left = G.GAME.round_resets.discards
+                    return true
+                    end
                 }
+            end
         end
-    end
 }

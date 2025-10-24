@@ -1,33 +1,31 @@
-SMODS.Joker{ --Stock Exchange
-    key = "stockexchange",
+SMODS.Joker{ --Swindler
+    key = "swindler",
     config = {
         extra = {
-            handsremaining = 0,
-            Xmult = 0.5
+            mult = 20,
+            dollars = 22
         }
     },
     loc_txt = {
-        ['name'] = 'Stock Exchange',
+        ['name'] = 'Swindler',
         ['text'] = {
-            [1] = 'Earn {C:money}$1{} for each',
-            [2] = 'remaining {C:attention}discard{}',
-            [3] = '{X:red,C:white}÷2{} Mult per hand',
-            [4] = ''
+            [1] = '{C:red}+20{} Mult',
+            [2] = '{C:money}-$20{} {C:attention}sell value{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 6,
-        y = 2
+        x = 2,
+        y = 3
     },
     display_size = {
         w = 71 * 1, 
         h = 95 * 1
     },
     cost = 4,
-    rarity = 2,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -40,13 +38,13 @@ SMODS.Joker{ --Stock Exchange
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             return {
-                Xmult = card.ability.extra.Xmult
+                mult = card.ability.extra.mult
             }
         end
-    if context.end_of_round and context.game_over == false and context.main_eval  then
-        return {
-            dollars = G.GAME.current_round.hands_left
-        }
+        if context.selling_self  then
+            return {
+                dollars = -card.ability.extra.dollars
+            }
+        end
     end
-end
 }

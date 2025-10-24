@@ -14,7 +14,7 @@ SMODS.Joker{ --Loss Leader
         }
     },
     pos = {
-        x = 4,
+        x = 5,
         y = 1
     },
     display_size = {
@@ -30,6 +30,7 @@ SMODS.Joker{ --Loss Leader
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
     end,
 

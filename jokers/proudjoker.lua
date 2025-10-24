@@ -15,8 +15,8 @@ SMODS.Joker{ --Proud Joker
         }
     },
     pos = {
-        x = 2,
-        y = 2
+        x = 0,
+        y = 0
     },
     display_size = {
         w = 71 * 1, 
@@ -31,6 +31,7 @@ SMODS.Joker{ --Proud Joker
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
             if SMODS.get_enhancements(context.other_card)["m_stone"] == true then

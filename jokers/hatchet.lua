@@ -17,8 +17,8 @@ SMODS.Joker{ --Hatchet
         }
     },
     pos = {
-        x = 2,
-        y = 1
+        x = 4,
+        y = 0
     },
     display_size = {
         w = 71 * 1, 
@@ -33,6 +33,7 @@ SMODS.Joker{ --Hatchet
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
         if context.destroy_card and context.destroy_card.should_destroy  then
             return { remove = true }

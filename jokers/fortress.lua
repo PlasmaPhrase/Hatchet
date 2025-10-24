@@ -19,7 +19,7 @@ SMODS.Joker{ --Fortress
         }
     },
     pos = {
-        x = 0,
+        x = 8,
         y = 1
     },
     display_size = {
@@ -35,31 +35,32 @@ SMODS.Joker{ --Fortress
     discovered = true,
     atlas = 'CustomJokers',
 
+    
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-                return {
-                    mult = card.ability.extra.multvar
-                }
+            return {
+                mult = card.ability.extra.multvar
+            }
         end
         if context.discard  then
-                return {
-                    func = function()
+            return {
+                func = function()
                     card.ability.extra.multvar = (card.ability.extra.multvar) + 1
                     return true
-                end,
+                    end,
                     message = "+1 Mult"
                 }
-        end
+            end
         if context.end_of_round and context.game_over == false and context.main_eval  then
             if (0 == G.GAME.current_round.discards_used and not (G.GAME.blind.config.blind.key == "bl_water")) then
                 return {
                     func = function()
-                    card.ability.extra.multvar = 1
-                    return true
-                end,
-                    message = "Reset!"
-                }
+                        card.ability.extra.multvar = 1
+                        return true
+                        end,
+                        message = "Reset!"
+                    }
+                end
             end
         end
-    end
 }
