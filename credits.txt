@@ -1,10 +1,18 @@
-This mod was developed using JokerForge.
+This mod was developed in JokerForge and Visual Studio Code.
 
 == Lead Developer + Artist ==
+
 Plasma
 
-== Special Thanks ==
+== Programming Assistance ==
+
 Eris
+
+== Special Thanks ==
+
 PokerthePoker
 Kaiwen
 nullstudios
+Astro
+Breuhh
+Sushi
