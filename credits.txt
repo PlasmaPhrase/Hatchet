@@ -4,9 +4,14 @@ This mod was developed in JokerForge and Visual Studio Code.
 
 Plasma
 
-== Programming Assistance ==
+== Programming Help ==
 
 Eris
+nh6754
+somethingcom515
+metanite64
+FreindlyBear
+srockw
 
 == Special Thanks ==
 
@@ -16,3 +21,7 @@ nullstudios
 Astro
 Breuhh
 Sushi
+breuhh
+Jabon
+
+Balatro Modding Chat + Modding Dev
