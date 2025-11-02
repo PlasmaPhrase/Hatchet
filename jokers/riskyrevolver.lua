@@ -3,7 +3,7 @@ SMODS.Joker{ --Risky Revolver
     config = {
         extra = {
             odds = 6,
-            Xmult = 3,
+            Xmult = 4,
             no = 0,
             var1 = 0
         }
@@ -11,7 +11,7 @@ SMODS.Joker{ --Risky Revolver
     loc_txt = {
         ['name'] = 'Risky Revolver',
         ['text'] = {
-            [1] = '{C:green}1 in 6 chance{} to give {X:red,C:white}X3{} Mult',
+            [1] = '{C:green}1 in 6 chance{} to give {X:red,C:white}X4{} Mult',
             [2] = '{C:green}1 in 6 chance{} to destroy a random Joker{}',
             [3] = '{C:green}4 in 6 chance{} to do nothing'
         },
@@ -33,7 +33,7 @@ SMODS.Joker{ --Risky Revolver
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 

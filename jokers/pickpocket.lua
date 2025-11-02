@@ -28,7 +28,7 @@ SMODS.Joker{ --Pickpocket
     eternal_compat = false,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
 
     

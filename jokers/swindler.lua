@@ -3,7 +3,7 @@ SMODS.Joker{ --Swindler
     config = {
         extra = {
             mult = 20,
-            dollars = 22
+            dollars = 20
         }
     },
     loc_txt = {
@@ -30,7 +30,7 @@ SMODS.Joker{ --Swindler
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 

@@ -1,44 +1,41 @@
-SMODS.Joker{ --Ace in the Hole
-    key = "aceinthehole",
+SMODS.Joker{ --Snake Eyes
+    key = "snakeeyes",
     config = {
         extra = {
-            chips = 100
+            dollars = 5
         }
     },
     loc_txt = {
-        ['name'] = 'Ace in the Hole',
+        ['name'] = 'Snake Eyes',
         ['text'] = {
-            [1] = 'Each {C:orange}Ace{} held in hand gives {C:blue}+100{} Chips'
+            [1] = 'Earn {C:money}$5{} for every destroyed card'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
     pos = {
-        x = 7,
-        y = 2
+        x = 5,
+        y = 3
     },
     display_size = {
         w = 71 * 1, 
         h = 95 * 1
     },
-    cost = 8,
-    rarity = 3,
+    cost = 4,
+    rarity = 2,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.hand and not context.end_of_round  then
-        if context.other_card:get_id() == 14 then
+        if context.remove_playing_cards  then
             return {
-                chips = card.ability.extra.chips
+                dollars = card.ability.extra.dollars * #context.removed
             }
         end
     end
-end
 }

@@ -33,7 +33,7 @@ SMODS.Joker{ --Pizza
     eternal_compat = false,
     perishable_compat = false,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 

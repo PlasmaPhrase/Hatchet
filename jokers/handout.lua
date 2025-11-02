@@ -13,7 +13,7 @@ SMODS.Joker{ --Handout
             [2] = 'at the end of round'
         },
         ['unlock'] = {
-            [1] = 'Unlocked by default.'
+            [1] = ''
         }
     },
     pos = {
@@ -30,7 +30,7 @@ SMODS.Joker{ --Handout
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 

@@ -8,7 +8,7 @@ SMODS.Joker{ --Roulette
     loc_txt = {
         ['name'] = 'Roulette',
         ['text'] = {
-            [1] = '{C:red}+12 {}Mult if played suit is a {C:attention}#1#{},',
+            [1] = '{C:red}+12 {}Mult if played hand has a {C:attention}#1#{},',
             [2] = 'suit changes at end of round'
         },
         ['unlock'] = {
@@ -29,7 +29,7 @@ SMODS.Joker{ --Roulette
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)

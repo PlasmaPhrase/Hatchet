@@ -15,7 +15,7 @@ SMODS.Joker{ --Black Joker
             [3] = '{C:blue}-1{} hand per round'
         },
         ['unlock'] = {
-            [1] = 'Unlocked by default.'
+            [1] = ''
         }
     },
     pos = {
@@ -32,7 +32,7 @@ SMODS.Joker{ --Black Joker
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
     in_pool = function(self, args)

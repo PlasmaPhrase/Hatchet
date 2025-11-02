@@ -12,7 +12,7 @@ SMODS.Joker{ --Nine Lives
         ['name'] = 'Nine Lives',
         ['text'] = {
             [1] = 'Every {C:attention}9{} held in hand gives {C:red}+9{} Mult',
-            [2] = '{C:attention}Self destructs{} after nine uses',
+            [2] = '{C:attention}Self destructs{} after nine rounds',
             [3] = '{C:inactive}(Used #1# times){}'
         },
         ['unlock'] = {
@@ -33,7 +33,7 @@ SMODS.Joker{ --Nine Lives
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
@@ -47,15 +47,7 @@ SMODS.Joker{ --Nine Lives
     if context.individual and context.cardarea == G.hand and not context.end_of_round  then
         if context.other_card:get_id() == 9 then
             return {
-                mult = card.ability.extra.mult,
-                extra = {
-                func = function()
-                    card.ability.extra.ninelives = (card.ability.extra.ninelives) + 1
-                    return true
-                    end,
-                    message = "-1 Life",
-                    colour = G.C.GREEN
-                }
+                mult = card.ability.extra.mult
             }
         end
     end
@@ -69,5 +61,14 @@ SMODS.Joker{ --Nine Lives
                 }
             end
         end
-    end
+    if context.end_of_round and context.game_over == false and context.main_eval  then
+        return {
+            func = function()
+                card.ability.extra.ninelives = (card.ability.extra.ninelives) + 1
+                return true
+                end,
+                message = "-1 Life"
+                }
+            end
+        end
 }

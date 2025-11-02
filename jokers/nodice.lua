@@ -21,6 +21,10 @@ SMODS.Joker{ --No Dice
             set_probability11 = 0,
             set_probability12 = 4,
             set_probability13 = 7,
+            set_probability14 = 0,
+            set_probability15 = 0,
+            set_probability16 = 0,
+            set_probability17 = 7,
             numerator = 0
         }
     },
@@ -50,7 +54,7 @@ SMODS.Joker{ --No Dice
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
@@ -111,6 +115,14 @@ SMODS.Joker{ --No Dice
                 numerator = card.ability.extra.set_probability12
             elseif context.identifier == "wheel" then
                 numerator = card.ability.extra.set_probability13
+            elseif context.identifier == "j_hatchet_d20" then
+                numerator = card.ability.extra.set_probability14
+            elseif context.identifier == "j_hatchet_riskyrevolver" then
+                numerator = card.ability.extra.set_probability15
+            elseif context.identifier == "j_hatchet_staircase" then
+                numerator = card.ability.extra.set_probability16
+            elseif context.identifier == "j_hatchet_wheelbarrow" then
+                numerator = card.ability.extra.set_probability17
             end
             return {
                 numerator = numerator, 

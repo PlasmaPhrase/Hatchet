@@ -17,7 +17,7 @@ SMODS.Joker{ --Blue Shoes
             [5] = 'this round'
         },
         ['unlock'] = {
-            [1] = 'Unlocked by default.'
+            [1] = ''
         }
     },
     pos = {
@@ -34,7 +34,7 @@ SMODS.Joker{ --Blue Shoes
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
 
