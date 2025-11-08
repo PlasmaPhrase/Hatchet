@@ -60,7 +60,7 @@ local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
-local jokerIndexList = {29,16,4,10,17,33,38,34,9,2,21,26,18,22,40,19,3,7,13,6,30,8,28,31,27,12,37,1,41,23,5,24,39,25,32,35,15,20,36,14,11}
+local jokerIndexList = {31,17,5,11,18,35,41,36,10,3,22,27,19,23,43,20,4,9,14,8,32,40,29,33,28,13,39,1,46,24,7,25,42,26,34,37,44,21,38,16,30,2,45,6,15,12}
 
 local function load_jokers_folder()
     local mod_path = SMODS.current_mod.path
@@ -159,12 +159,14 @@ SMODS.ObjectType({
 SMODS.ObjectType({
     key = "hatchet_hatchet_jokers",
     cards = {
+        ["j_hatchet_airmissile"] = true,
         ["j_hatchet_blackjoker"] = true,
         ["j_hatchet_blueshoes"] = true,
+        ["j_hatchet_cave"] = true,
         ["j_hatchet_composter"] = true,
         ["j_hatchet_d20"] = true,
-        ["j_hatchet_dawn"] = true,
         ["j_hatchet_etzchaim"] = true,
+        ["j_hatchet_giraffe"] = true,
         ["j_hatchet_graveyardshift"] = true,
         ["j_hatchet_handout"] = true,
         ["j_hatchet_loveletter"] = true,
@@ -174,10 +176,13 @@ SMODS.ObjectType({
         ["j_hatchet_ninelives"] = true,
         ["j_hatchet_nodice"] = true,
         ["j_hatchet_pizza"] = true,
+        ["j_hatchet_plantparty"] = true,
         ["j_hatchet_riskyrevolver"] = true,
         ["j_hatchet_staircase"] = true,
         ["j_hatchet_stockexchange"] = true,
+        ["j_hatchet_sunset"] = true,
         ["j_hatchet_swindler"] = true,
-        ["j_hatchet_trickyjoker"] = true
+        ["j_hatchet_trickyjoker"] = true,
+        ["j_hatchet_wildside"] = true
     },
 })
