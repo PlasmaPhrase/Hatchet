@@ -4,14 +4,14 @@ SMODS.Enhancement {
     config = {
         extra = {
             odds = 2,
-            retrigger_times = 1
+            retrigger_times = 2
         }
     },
     loc_txt = {
         name = 'Salt',
         text = {
         [1] = 'Enhanced card has a {C:green}1 in 2{} chance',
-        [2] = 'to retrigger when scored'
+        [2] = 'to retrigger twice when scored'
     }
     },
     atlas = 'CustomEnhancements',
@@ -32,6 +32,7 @@ SMODS.Enhancement {
             card.should_retrigger = false
             if SMODS.pseudorandom_probability(card, 'group_0_739e6c78', 1, card.ability.extra.odds, 'm_hatchet_salt') then
                 card.should_retrigger = true
+            card.ability.extra.retrigger_times = 2
             end
         end
     end
