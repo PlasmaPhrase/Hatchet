@@ -16,7 +16,7 @@ SMODS.Joker{ --Etz Chaim
         }
     },
     pos = {
-        x = 0,
+        x = 5,
         y = 4
     },
     display_size = {
@@ -33,7 +33,7 @@ SMODS.Joker{ --Etz Chaim
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
     soul_pos = {
-        x = 1,
+        x = 6,
         y = 4
     },
     in_pool = function(self, args)

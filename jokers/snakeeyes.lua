@@ -2,13 +2,14 @@ SMODS.Joker{ --Snake Eyes
     key = "snakeeyes",
     config = {
         extra = {
-            dollars = 5
+            set_probability = 2,
+            denominator = 0
         }
     },
     loc_txt = {
         ['name'] = 'Snake Eyes',
         ['text'] = {
-            [1] = 'Earn {C:money}$5{} for every destroyed card'
+            [1] = 'All {C:green}denominators{} are set to {C:attention}2{}'
         },
         ['unlock'] = {
             [1] = ''
@@ -30,11 +31,15 @@ SMODS.Joker{ --Snake Eyes
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
+
     
     calculate = function(self, card, context)
-        if context.remove_playing_cards  then
+        if context.fix_probability  then
+            local numerator, denominator = context.numerator, context.denominator
+            denominator = card.ability.extra.set_probability
             return {
-                dollars = card.ability.extra.dollars * #context.removed
+                numerator = numerator, 
+                denominator = denominator
             }
         end
     end

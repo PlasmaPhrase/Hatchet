@@ -9,7 +9,7 @@ SMODS.Joker{ --Staircase
     loc_txt = {
         ['name'] = 'Staircase',
         ['text'] = {
-            [1] = 'Every played {C:attention}8{} has a {C:green}#2# in #3#{} chance',
+            [1] = 'Every played {C:attention}face card{} has a {C:green}#2# in #3#{} chance',
             [2] = 'to create a {C:green}Sephirot{} card',
             [3] = '{C:inactive}(Must have room){}'
         },
@@ -33,19 +33,19 @@ SMODS.Joker{ --Staircase
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["modprefix_hatchet_jokers"] = true },
+    pools = { ["hatchet_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_modprefix_staircase') 
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatchet_staircase') 
         return {vars = {card.ability.extra.n, new_numerator, new_denominator}}
     end,
 
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
-            if context.other_card:get_id() == 8 then
-                if SMODS.pseudorandom_probability(card, 'group_0_8534ce80', 1, card.ability.extra.odds, 'j_modprefix_staircase', false) then
+            if context.other_card:is_face() then
+                if SMODS.pseudorandom_probability(card, 'group_0_8534ce80', 1, card.ability.extra.odds, 'j_hatchet_staircase', false) then
                     for i = 1, math.min(1, G.consumeables.config.card_limit - #G.consumeables.cards) do
                         G.E_MANAGER:add_event(Event({
                         trigger = 'after',

@@ -8,24 +8,18 @@ SMODS.Joker{ --No Dice
             mult4 = 3,
             mult5 = 3,
             mult6 = 3,
-            set_probability = 0,
-            set_probability2 = 6,
+            set_probability = 6,
+            set_probability2 = 1000,
             set_probability3 = 0,
             set_probability4 = 0,
-            set_probability5 = 1000,
-            set_probability6 = 0,
-            set_probability7 = 0,
+            set_probability5 = 0,
+            set_probability6 = 4,
+            set_probability7 = 7,
             set_probability8 = 0,
-            set_probability9 = 0,
+            set_probability9 = 2,
             set_probability10 = 0,
-            set_probability11 = 0,
-            set_probability12 = 4,
-            set_probability13 = 7,
-            set_probability14 = 0,
-            set_probability15 = 0,
-            set_probability16 = 0,
-            set_probability17 = 7,
-            numerator = 0
+            numerator = 0,
+            denominator = 0
         }
     },
     loc_txt = {
@@ -89,40 +83,26 @@ SMODS.Joker{ --No Dice
         end
         if context.fix_probability  then
             local numerator, denominator = context.numerator, context.denominator
-            if context.identifier == "8ball" then
+            if context.identifier == "gros_michel" then
                 numerator = card.ability.extra.set_probability
-            elseif context.identifier == "gros_michel" then
-                numerator = card.ability.extra.set_probability2
-            elseif context.identifier == "business" then
-                numerator = card.ability.extra.set_probability3
-            elseif context.identifier == "space" then
-                numerator = card.ability.extra.set_probability4
             elseif context.identifier == "cavendish" then
-                numerator = card.ability.extra.set_probability5
-            elseif context.identifier == "parking" then
-                numerator = card.ability.extra.set_probability6
-            elseif context.identifier == "halu1" then
-                numerator = card.ability.extra.set_probability7
-            elseif context.identifier == "bloodstone" then
-                numerator = card.ability.extra.set_probability8
+                numerator = card.ability.extra.set_probability2
+            elseif (context.identifier == "bloodstone" or context.identifier == "halu1" or context.identifier == "parking" or context.identifier == "space" or context.identifier == "space" or context.identifier == "8ball") then
+                numerator = card.ability.extra.set_probability3
             elseif context.identifier == "wheel_of_fortune" then
-                numerator = card.ability.extra.set_probability9
-            elseif context.identifier == "lucky_mult" then
-                numerator = card.ability.extra.set_probability10
-            elseif context.identifier == "lucky_money" then
-                numerator = card.ability.extra.set_probability11
+                numerator = card.ability.extra.set_probability4
+            elseif (context.identifier == "lucky_money" or context.identifier == "lucky_mult") then
+                numerator = card.ability.extra.set_probability5
             elseif context.identifier == "glass" then
-                numerator = card.ability.extra.set_probability12
+                numerator = card.ability.extra.set_probability6
             elseif context.identifier == "wheel" then
-                numerator = card.ability.extra.set_probability13
-            elseif context.identifier == "j_hatchet_d20" then
-                numerator = card.ability.extra.set_probability14
-            elseif context.identifier == "j_hatchet_riskyrevolver" then
-                numerator = card.ability.extra.set_probability15
-            elseif context.identifier == "j_hatchet_staircase" then
-                numerator = card.ability.extra.set_probability16
+                numerator = card.ability.extra.set_probability7
+            elseif (context.identifier == "j_hatchet_d20" or context.identifier == "j_hatchet_riskyrevolver" or context.identifier == "j_hatchet_staircase" and context.identifier == "j_hatchet_airmissile") then
+                numerator = card.ability.extra.set_probability8
             elseif context.identifier == "j_hatchet_wheelbarrow" then
-                numerator = card.ability.extra.set_probability17
+                numerator = card.ability.extra.set_probability9
+            elseif context.identifier == "j_hatchet_snakeeyes" then
+                denominator = card.ability.extra.set_probability10
             end
             return {
                 numerator = numerator, 

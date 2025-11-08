@@ -1,25 +1,22 @@
-SMODS.Joker{ --Stock Exchange
-    key = "stockexchange",
+SMODS.Joker{ --Sunset
+    key = "sunset",
     config = {
         extra = {
-            handsremaining = 0,
-            Xmult = 0.5
+            xchips = 2
         }
     },
     loc_txt = {
-        ['name'] = 'Stock Exchange',
+        ['name'] = 'Sunset',
         ['text'] = {
-            [1] = 'Earn {C:money}$5{} for each',
-            [2] = 'remaining {C:attention}discard{}',
-            [3] = '{X:red,C:white}X0.5{} Mult per hand',
-            [4] = ''
+            [1] = 'On the first hand',
+            [2] = 'double all played {C:blue}chips{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
     pos = {
-        x = 6,
+        x = 1,
         y = 2
     },
     display_size = {
@@ -27,7 +24,7 @@ SMODS.Joker{ --Stock Exchange
         h = 95 * 1
     },
     cost = 4,
-    rarity = 2,
+    rarity = 1,
     blueprint_compat = true,
     eternal_compat = true,
     perishable_compat = true,
@@ -39,14 +36,11 @@ SMODS.Joker{ --Stock Exchange
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-            return {
-                Xmult = card.ability.extra.Xmult
-            }
+            if G.GAME.current_round.hands_played == 0 then
+                return {
+                    x_chips = card.ability.extra.xchips
+                }
+            end
         end
-    if context.end_of_round and context.game_over == false and context.main_eval  then
-        return {
-            dollars = (G.GAME.current_round.hands_left) * 5
-        }
     end
-end
 }
