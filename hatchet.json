@@ -7,10 +7,10 @@
   "description": "A Balatro mod that adds 30+ Jokers, consumables, and more!",
   "prefix": "hatchet",
   "main_file": "main.lua",
-  "version": "1.2.0~Beta",
+  "version": "1.2.1",
   "priority": 0,
-  "badge_colour": "666665",
-  "badge_text_colour": "FFFFFF",
+  "badge_colour": "101414",
+  "badge_text_colour": "ff4f6c",
   "dependencies": [
     "Steamodded (>=1.0.0~BETA-0827c)"
   ]
