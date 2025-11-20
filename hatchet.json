@@ -4,10 +4,10 @@
   "author": [
     "Plasma"
   ],
-  "description": "A Balatro mod that adds 30+ Jokers, consumables, and more!",
-  "prefix": "hatchet",
+  "description": "A Balatro mod that adds new Jokers, consumables, and much more!",
+  "prefix": "hatch",
   "main_file": "main.lua",
-  "version": "1.3.0",
+  "version": "1.4.0-beta",
   "priority": 0,
   "badge_colour": "101414",
   "badge_text_colour": "ff4f6c",

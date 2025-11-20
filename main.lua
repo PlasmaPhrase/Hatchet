@@ -56,11 +56,20 @@ SMODS.Atlas({
     atlas_table = "ASSET_ATLAS"
 })
 
+SMODS.Atlas({
+    key = "CustomBlinds", 
+    path = "CustomBlinds.png", 
+    px = 34,
+    py = 34, 
+    frames = 21, 
+    atlas_table = "ANIMATION_ATLAS"
+})
+
 local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
-local jokerIndexList = {31,17,5,11,18,35,41,36,10,3,22,27,19,23,43,20,4,9,14,8,32,40,29,33,28,13,39,1,46,24,7,25,42,26,34,37,44,21,38,16,30,2,45,6,15,12}
+local jokerIndexList = {32,18,5,12,19,36,42,37,10,3,23,28,20,24,44,21,4,9,15,8,33,41,30,34,29,14,40,1,47,25,7,26,43,27,35,38,45,22,39,17,31,2,46,6,16,13,11}
 
 local function load_jokers_folder()
     local mod_path = SMODS.current_mod.path
@@ -75,7 +84,7 @@ local function load_jokers_folder()
 end
 
 
-local consumableIndexList = {7,3,1,2,5,10,9,6,11,8,4}
+local consumableIndexList = {7,3,1,2,5,11,9,6,12,8,4,10}
 
 local function load_consumables_folder()
     local mod_path = SMODS.current_mod.path
@@ -115,7 +124,6 @@ local function load_enhancements_folder()
     end
 end
 
-
 local deckIndexList = {2,1}
 
 local function load_decks_folder()
@@ -130,6 +138,8 @@ local function load_decks_folder()
     end
 end
 
+assert(SMODS.load_file("src/blinds.lua"))()
+assert(SMODS.load_file("src/challenges.lua"))()
 
 local function load_boosters_file()
     local mod_path = SMODS.current_mod.path
@@ -142,7 +152,7 @@ load_consumables_folder()
 load_enhancements_folder()
 load_decks_folder()
 SMODS.ObjectType({
-    key = "hatchet_food",
+    key = "hatch_food",
     cards = {
         ["j_gros_michel"] = true,
         ["j_egg"] = true,
@@ -157,32 +167,39 @@ SMODS.ObjectType({
 })
 
 SMODS.ObjectType({
-    key = "hatchet_hatchet_jokers",
+    key = "hatch_hatch_jokers",
     cards = {
-        ["j_hatchet_airmissile"] = true,
-        ["j_hatchet_blackjoker"] = true,
-        ["j_hatchet_blueshoes"] = true,
-        ["j_hatchet_cave"] = true,
-        ["j_hatchet_composter"] = true,
-        ["j_hatchet_d20"] = true,
-        ["j_hatchet_etzchaim"] = true,
-        ["j_hatchet_giraffe"] = true,
-        ["j_hatchet_graveyardshift"] = true,
-        ["j_hatchet_handout"] = true,
-        ["j_hatchet_loveletter"] = true,
-        ["j_hatchet_musketeer"] = true,
-        ["j_hatchet_needlenonsense"] = true,
-        ["j_hatchet_nightvision"] = true,
-        ["j_hatchet_ninelives"] = true,
-        ["j_hatchet_nodice"] = true,
-        ["j_hatchet_pizza"] = true,
-        ["j_hatchet_plantparty"] = true,
-        ["j_hatchet_riskyrevolver"] = true,
-        ["j_hatchet_staircase"] = true,
-        ["j_hatchet_stockexchange"] = true,
-        ["j_hatchet_sunset"] = true,
-        ["j_hatchet_swindler"] = true,
-        ["j_hatchet_trickyjoker"] = true,
-        ["j_hatchet_wildside"] = true
+        ["j_hatch_airmissile"] = true,
+        ["j_hatch_blackjoker"] = true,
+        ["j_hatch_blueshoes"] = true,
+        ["j_hatch_cave"] = true,
+        ["j_hatch_composter"] = true,
+        ["j_hatch_d20"] = true,
+        ["j_hatch_etzchaim"] = true,
+        ["j_hatch_giraffe"] = true,
+        ["j_hatch_graveyardshift"] = true,
+        ["j_hatch_handout"] = true,
+        ["j_hatch_loveletter"] = true,
+        ["j_hatch_musketeer"] = true,
+        ["j_hatch_needlenonsense"] = true,
+        ["j_hatch_nightvision"] = true,
+        ["j_hatch_ninelives"] = true,
+        ["j_hatch_nodice"] = true,
+        ["j_hatch_pizza"] = true,
+        ["j_hatch_plantparty"] = true,
+        ["j_hatch_riskyrevolver"] = true,
+        ["j_hatch_staircase"] = true,
+        ["j_hatch_stockexchange"] = true,
+        ["j_hatch_sunset"] = true,
+        ["j_hatch_swindler"] = true,
+        ["j_hatch_trickyjoker"] = true,
+        ["j_hatch_wildside"] = true
     },
 })
+
+
+SMODS.current_mod.optional_features = function()
+    return {
+        cardareas = {} 
+    }
+end
