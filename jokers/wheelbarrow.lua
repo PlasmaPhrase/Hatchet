@@ -11,6 +11,7 @@ SMODS.Joker{ --Wheelbarrow
         ['text'] = {
             [1] = 'Gains {X:red,C:white}X0.5{} Mult per round',
             [2] = '{C:green}1 of 2{} cards get drawn face down',
+            [3] = '{C:inactive}(Currently{} {X:red,C:white}X#1#{} {C:inactive}Mult){}'
         },
         ['unlock'] = {
             [1] = ''
@@ -32,7 +33,7 @@ SMODS.Joker{ --Wheelbarrow
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatch_jokers"] = true },
 
     calculate = function(self, blind, context)
         if context.stay_flipped and context.to_area == G.hand and

@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Swindler
     key = "swindler",
     config = {
@@ -32,8 +33,7 @@ SMODS.Joker{ --Swindler
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -43,7 +43,16 @@ SMODS.Joker{ --Swindler
         end
         if context.selling_self  then
             return {
-                dollars = -card.ability.extra.dollars
+                
+                func = function()
+                    
+                    local current_dollars = G.GAME.dollars
+                    local target_dollars = G.GAME.dollars - card.ability.extra.dollars
+                    local dollar_value = target_dollars - current_dollars
+                    ease_dollars(dollar_value)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.dollars), colour = G.C.MONEY})
+                    return true
+                end
             }
         end
     end

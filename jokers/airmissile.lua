@@ -33,13 +33,13 @@ SMODS.Joker{ --Air Missile
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatch_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatchet_airmissile') 
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatch_airmissile') 
         return {vars = {card.ability.extra.xmult, new_numerator, new_denominator}}
     end,
 
@@ -47,7 +47,7 @@ SMODS.Joker{ --Air Missile
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.jokers  then
             if true then
-                if SMODS.pseudorandom_probability(card, 'group_0_f9f9ec2e', 1, card.ability.extra.odds, 'j_hatchet_airmissile', false) then
+                if SMODS.pseudorandom_probability(card, 'group_0_f9f9ec2e', 1, card.ability.extra.odds, 'j_hatch_airmissile', false) then
                     local target_hand = (context.scoring_name or "High Card")
                         SMODS.calculate_effect({level_up = card.ability.extra.levels,
                     level_up_hand = target_hand}, card)

@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Ace in the Hole
     key = "aceinthehole",
     config = {
@@ -30,15 +31,14 @@ SMODS.Joker{ --Ace in the Hole
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.hand and not context.end_of_round  then
-        if context.other_card:get_id() == 14 then
-            return {
-                chips = card.ability.extra.chips
-            }
+        if context.cardarea == G.hand and context.end_of_round  then
+            if context.other_card:get_id() == 14 then
+                return {
+                    chips = card.ability.extra.chips
+                }
+            end
         end
     end
-end
 }

@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Giraffe
     key = "giraffe",
     config = {
@@ -29,15 +30,14 @@ SMODS.Joker{ --Giraffe
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.chips}}
     end,
-
     
     calculate = function(self, card, context)
         if context.reroll_shop  then
@@ -45,14 +45,14 @@ SMODS.Joker{ --Giraffe
                 func = function()
                     card.ability.extra.chips = (card.ability.extra.chips) + 50
                     return true
-                    end,
-                    message = "+50"
-                }
-            end
-            if context.cardarea == G.jokers and context.joker_main  then
-                return {
-                    chips = card.ability.extra.chips
-                }
-            end
+                end,
+                message = "+50"
+            }
         end
+        if context.cardarea == G.jokers and context.joker_main  then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end
 }

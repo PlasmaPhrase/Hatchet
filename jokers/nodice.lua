@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --No Dice
     key = "nodice",
     config = {
@@ -10,14 +11,14 @@ SMODS.Joker{ --No Dice
             mult6 = 3,
             set_probability = 6,
             set_probability2 = 1000,
-            set_probability3 = 0,
-            set_probability4 = 0,
-            set_probability5 = 0,
+            set_probability3 = 1,
+            set_probability4 = 1,
+            set_probability5 = 1,
             set_probability6 = 4,
             set_probability7 = 7,
-            set_probability8 = 0,
+            set_probability8 = 1,
             set_probability9 = 2,
-            set_probability10 = 0,
+            set_probability10 = 1,
             numerator = 0,
             denominator = 0
         }
@@ -50,8 +51,7 @@ SMODS.Joker{ --No Dice
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then

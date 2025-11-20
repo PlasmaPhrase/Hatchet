@@ -1,10 +1,13 @@
+
 SMODS.Joker{ --Saving Grace
     key = "savinggrace",
     config = {
         extra = {
             levels = 2,
             start_dissolve = 0,
-            n = 0
+            n = 0,
+            no = 0,
+            var1 = 0
         }
     },
     loc_txt = {
@@ -35,20 +38,29 @@ SMODS.Joker{ --Saving Grace
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.before and context.cardarea == G.jokers  then
-            if G.GAME.current_round.hands_left == 0 then
+            if to_big(G.GAME.current_round.hands_left) == to_big(1) then
                 local target_hand = (context.scoring_name or "High Card")
+                level_up_hand(card, target_hand, true, card.ability.extra.levels)
                 return {
-                    level_up = card.ability.extra.levels,
-                    level_up_hand = target_hand,
                     message = localize('k_level_up_ex'),
                     extra = {
-                    func = function()
-                        card:start_dissolve()
-                        return true
+                        func = function()
+                            local target_joker = card
+                            
+                            if target_joker then
+                                target_joker.getting_sliced = true
+                                G.E_MANAGER:add_event(Event({
+                                    func = function()
+                                        target_joker:start_dissolve({G.C.RED}, nil, 1.6)
+                                        return true
+                                    end
+                                }))
+                                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Destroyed!", colour = G.C.RED})
+                            end
+                            return true
                         end,
                         colour = G.C.RED
                     }

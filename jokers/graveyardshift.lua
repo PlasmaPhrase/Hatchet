@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Graveyard Shift
     key = "graveyardshift",
     config = {
@@ -33,13 +34,12 @@ SMODS.Joker{ --Graveyard Shift
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.discards}}
     end,
-
     
     calculate = function(self, card, context)
         if context.discard  then
@@ -47,25 +47,25 @@ SMODS.Joker{ --Graveyard Shift
                 func = function()
                     card.ability.extra.discards = (card.ability.extra.discards) + 1
                     return true
-                    end,
-                    message = "+1"
-                }
-            end
-            if context.cardarea == G.jokers and context.joker_main  then
-                if G.GAME.current_round.hands_left == 0 then
-                    return {
-                        mult = card.ability.extra.discards
-                    }
-                end
-            end
-        if context.end_of_round and context.game_over == false and context.main_eval  then
-            return {
-                func = function()
-                    card.ability.extra.discards = 0
-                    return true
-                    end,
-                    message = "Resets!"
+                end,
+                message = "+1"
+            }
+        end
+        if context.cardarea == G.jokers and context.joker_main  then
+            if to_big(G.GAME.current_round.hands_left) == to_big(1) then
+                return {
+                    mult = card.ability.extra.discards
                 }
             end
         end
+        if context.end_of_round and context.game_over == false and context.main_eval  then
+            return {
+                func = function()
+                    card.ability.extra.discards = 1
+                    return true
+                end,
+                message = "Resets!"
+            }
+        end
+    end
 }

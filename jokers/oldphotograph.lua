@@ -1,9 +1,9 @@
+
 SMODS.Joker{ --Old Photograph
     key = "oldphotograph",
     config = {
         extra = {
             odds = 2,
-            repetitions = 1,
             Xmult = 1.5
         }
     },
@@ -34,7 +34,12 @@ SMODS.Joker{ --Old Photograph
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
+    
+    loc_vars = function(self, info_queue, card)
+        
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatch_oldphotograph') 
+        return {vars = {new_numerator, new_denominator}}
+    end,
     
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then
@@ -43,30 +48,26 @@ SMODS.Joker{ --Old Photograph
                     local scoring_card = context.scoring_hand[i]
                     if scoring_card:is_face() then
                         return scoring_card == context.other_card
-                        end
-                    end
-                    return false
-                    end)() then
-                        if SMODS.pseudorandom_probability(card, 'group_0_35e7c8fb', 1, card.ability.extra.odds, 'j_hatchet_oldphotograph', false) then
-                            
-                            return {repetitions = card.ability.extra.repetitions}
-                        end
                     end
                 end
-                if context.individual and context.cardarea == G.play  then
-                    if (function()
-                        for i = 1, #context.scoring_hand do
-                            local scoring_card = context.scoring_hand[i]
-                            if scoring_card:is_face() then
-                                return scoring_card == context.other_card
-                                end
-                            end
-                            return false
-                            end)() then
-                                return {
-                                    Xmult = card.ability.extra.Xmult
-                                }
-                            end
-                        end
+                return false
+            end)() then
+            end
+        end
+        if context.individual and context.cardarea == G.play  then
+            if (function()
+                for i = 1, #context.scoring_hand do
+                    local scoring_card = context.scoring_hand[i]
+                    if scoring_card:is_face() then
+                        return scoring_card == context.other_card
                     end
+                end
+                return false
+            end)() then
+                return {
+                    Xmult = card.ability.extra.Xmult
+                }
+            end
+        end
+    end
 }

@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Roulette
     key = "roulette",
     config = {
@@ -31,35 +32,22 @@ SMODS.Joker{ --Roulette
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {localize((G.GAME.current_round.suitvar_card or {}).suit or 'Spades', 'suits_singular')}, colours = {G.C.SUITS[(G.GAME.current_round.suitvar_card or {}).suit or 'Spades']}}
     end,
-
+    
     set_ability = function(self, card, initial)
         G.GAME.current_round.suitvar_card = { suit = 'Spades' }
     end,
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-            if (function()
-                local suitFound = false
-                for i, c in ipairs(context.scoring_hand) do
-                    if c:is_suit(G.GAME.current_round.suitvar_card.suit) then
-                        suitFound = true
-                        break
-                    end
-                end
-                
-                return suitFound
-                end)() then
-                    return {
-                        mult = card.ability.extra.mult
-                    }
-                end
-            end
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
         if context.end_of_round and context.game_over == false and context.main_eval  and not context.blueprint then
             if G.playing_cards then
                 local valid_suitvar_cards = {}

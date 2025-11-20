@@ -1,10 +1,13 @@
+
 SMODS.Joker{ --Blue Shoes
     key = "blueshoes",
     config = {
         extra = {
             chips = 200,
             start_dissolve = 0,
-            n = 0
+            n = 0,
+            no = 0,
+            var1 = 0
         }
     },
     loc_txt = {
@@ -36,23 +39,28 @@ SMODS.Joker{ --Blue Shoes
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
             if G.GAME.hands[context.scoring_name] and G.GAME.hands[context.scoring_name].played_this_round > 1 then
-                return {
-                    func = function()
-                        card:start_dissolve()
-                        return true
+                local target_joker = card
+                
+                if target_joker then
+                    target_joker.getting_sliced = true
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            target_joker:start_dissolve({G.C.RED}, nil, 1.6)
+                            return true
                         end
-                    }
-                else
-                    return {
-                        chips = card.ability.extra.chips
-                    }
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Destroyed!", colour = G.C.RED})
                 end
+            else
+                return {
+                    chips = card.ability.extra.chips
+                }
             end
         end
+    end
 }

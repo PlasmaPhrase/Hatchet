@@ -1,8 +1,10 @@
+
 SMODS.Joker{ --Sailor
     key = "sailor",
     config = {
         extra = {
-            goldchips = 0
+            goldchips = 0,
+            text = 0
         }
     },
     loc_txt = {
@@ -32,12 +34,11 @@ SMODS.Joker{ --Sailor
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.goldchips}}
     end,
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then

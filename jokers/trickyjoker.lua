@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Tricky Joker
     key = "trickyjoker",
     config = {
@@ -33,18 +34,23 @@ SMODS.Joker{ --Tricky Joker
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {(G.GAME.round_resets.discards or 0)}}
+    end,
     
     calculate = function(self, card, context)
         if context.setting_blind  then
             return {
+                
                 func = function()
                     card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Set to "..tostring(G.GAME.round_resets.discards).." Hands", colour = G.C.BLUE})
                     G.GAME.current_round.hands_left = G.GAME.round_resets.discards
                     return true
-                    end
-                }
-            end
+                end
+            }
         end
+    end
 }

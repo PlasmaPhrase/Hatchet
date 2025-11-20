@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Musketeer
     key = "musketeer",
     config = {
@@ -33,22 +34,12 @@ SMODS.Joker{ --Musketeer
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
-            if (next(context.poker_hands["Three of a Kind"]) and (function()
-                local rankCount = 0
-                for i, c in ipairs(context.scoring_hand) do
-                    if c:get_id() == 4 then
-                        rankCount = rankCount + 1
-                    end
-                end
-                
-                return rankCount >= 1
-                end)()) then
-                    G.E_MANAGER:add_event(Event({
+            if next(context.poker_hands["Three of a Kind"]) then
+                G.E_MANAGER:add_event(Event({
                     func = function()
                         local tag = Tag("tag_investment")
                         if tag.name == "Orbital Tag" then
@@ -64,12 +55,12 @@ SMODS.Joker{ --Musketeer
                         add_tag(tag)
                         play_sound('holo1', 1.2 + math.random() * 0.1, 0.4)
                         return true
-                        end
-                    }))
-                    return {
-                        message = "Created Tag!"
-                    }
-                end
+                    end
+                }))
+                return {
+                    message = "Created Tag!"
+                }
             end
         end
+    end
 }

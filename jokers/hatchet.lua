@@ -1,8 +1,10 @@
+
 SMODS.Joker{ --Hatchet
     key = "hatchet",
     config = {
         extra = {
-            Xmult = 2.5
+            Xmult = 2.5,
+            n = 0
         }
     },
     loc_txt = {
@@ -32,7 +34,6 @@ SMODS.Joker{ --Hatchet
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.destroy_card and context.destroy_card.should_destroy  then
@@ -40,7 +41,7 @@ SMODS.Joker{ --Hatchet
         end
         if context.individual and context.cardarea == G.play  then
             context.other_card.should_destroy = false
-            if (G.GAME.current_round.hands_played == 0 and #context.full_hand >= 1) then
+            if (G.GAME.current_round.hands_played == 0 and to_big(#context.full_hand) >= to_big(1)) then
                 context.other_card.should_destroy = true
                 return {
                     message = "Destroyed!"

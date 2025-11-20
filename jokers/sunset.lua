@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Sunset
     key = "sunset",
     config = {
@@ -31,8 +32,7 @@ SMODS.Joker{ --Sunset
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then

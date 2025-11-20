@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Stock Exchange
     key = "stockexchange",
     config = {
@@ -34,8 +35,12 @@ SMODS.Joker{ --Stock Exchange
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {((G.GAME.current_round.hands_left or 0)) * 5}}
+    end,
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -43,10 +48,19 @@ SMODS.Joker{ --Stock Exchange
                 Xmult = card.ability.extra.Xmult
             }
         end
-    if context.end_of_round and context.game_over == false and context.main_eval  then
-        return {
-            dollars = (G.GAME.current_round.hands_left) * 5
-        }
+        if context.end_of_round and context.game_over == false and context.main_eval  then
+            return {
+                
+                func = function()
+                    
+                    local current_dollars = G.GAME.dollars
+                    local target_dollars = G.GAME.dollars + (G.GAME.current_round.hands_left) * 5
+                    local dollar_value = target_dollars - current_dollars
+                    ease_dollars(dollar_value)
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "+"..tostring((G.GAME.current_round.hands_left) * 5), colour = G.C.MONEY})
+                    return true
+                end
+            }
+        end
     end
-end
 }

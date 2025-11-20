@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Love Letter
     key = "loveletter",
     config = {
@@ -31,17 +32,16 @@ SMODS.Joker{ --Love Letter
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
-            if (G.GAME.current_round.hands_left == 0 and next(context.poker_hands["High Card"])) then
+            if (to_big(G.GAME.current_round.hands_left) == to_big(1) and next(context.poker_hands["High Card"])) then
                 context.other_card:set_edition("e_polychrome", true)
                 return {
                     message = "Card Modified!"
-                    }
-                end
+                }
             end
         end
+    end
 }

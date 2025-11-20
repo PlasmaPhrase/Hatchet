@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Cave
     key = "cave",
     config = {
@@ -29,18 +30,17 @@ SMODS.Joker{ --Cave
     eternal_compat = true,
     perishable_compat = true,
     unlocked = true,
-    discovered = true,
+    discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
-    if context.individual and context.cardarea == G.hand and not context.end_of_round  then
-        if SMODS.get_enhancements(context.other_card)["m_stone"] == true then
-            return {
-                Xmult = card.ability.extra.Xmult
-            }
+        if context.cardarea == G.hand and context.end_of_round  then
+            if SMODS.get_enhancements(context.other_card)["m_stone"] == true then
+                return {
+                    Xmult = card.ability.extra.Xmult
+                }
+            end
         end
     end
-end
 }

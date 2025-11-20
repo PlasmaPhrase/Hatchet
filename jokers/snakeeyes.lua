@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Snake Eyes
     key = "snakeeyes",
     config = {
@@ -31,7 +32,6 @@ SMODS.Joker{ --Snake Eyes
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.fix_probability  then

@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Proud Joker
     key = "proudjoker",
     config = {
@@ -30,7 +31,6 @@ SMODS.Joker{ --Proud Joker
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then

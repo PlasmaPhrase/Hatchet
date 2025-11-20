@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Staircase
     key = "staircase",
     config = {
@@ -33,28 +34,27 @@ SMODS.Joker{ --Staircase
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
     loc_vars = function(self, info_queue, card)
         
-        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatchet_staircase') 
-        return {vars = {card.ability.extra.n, new_numerator, new_denominator}}
+        local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatch_staircase') 
+        return {vars = {new_numerator, new_denominator}}
     end,
-
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  then
             if context.other_card:is_face() then
-                if SMODS.pseudorandom_probability(card, 'group_0_8534ce80', 1, card.ability.extra.odds, 'j_hatchet_staircase', false) then
+                if SMODS.pseudorandom_probability(card, 'group_0_8534ce80', 1, card.ability.extra.odds, 'j_hatch_staircase', false) then
                     for i = 1, math.min(1, G.consumeables.config.card_limit - #G.consumeables.cards) do
                         G.E_MANAGER:add_event(Event({
-                        trigger = 'after',
-                        delay = 0.4,
-                        func = function()
-                            play_sound('timpani')
-                            SMODS.add_card({ set = 'sephirot', })                            
-                            card:juice_up(0.3, 0.5)
-                            return true
+                            trigger = 'after',
+                            delay = 0.4,
+                            func = function()
+                                play_sound('timpani')
+                                SMODS.add_card({ set = 'sephirot', })                            
+                                card:juice_up(0.3, 0.5)
+                                return true
                             end
                         }))
                     end

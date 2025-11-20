@@ -8,7 +8,7 @@ SMODS.Joker{ --Plant Party
     loc_txt = {
         ['name'] = 'Plant Party',
         ['text'] = {
-            [1] = '{X:red,C:white}X0.1{} Mult for each hand',
+            [1] = '{X:red,C:white}X0.25{} Mult for each hand',
             [2] = 'played without a {C:attention}face card{}',
             [3] = '{C:inactive}(Currently{} {X:red,C:white}X#1#{}{}{C:inactive} Mult){}'
         },
@@ -32,7 +32,7 @@ SMODS.Joker{ --Plant Party
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatch_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -52,7 +52,7 @@ SMODS.Joker{ --Plant Party
                 
                 return rankCount >= 1
                 end)()) then
-                    card.ability.extra.xmult = (card.ability.extra.xmult) + 0.1
+                    card.ability.extra.xmult = (card.ability.extra.xmult) + 0.25
                     return {
                         Xmult = card.ability.extra.xmult
                     }

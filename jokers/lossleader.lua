@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Loss Leader
     key = "lossleader",
     config = {
@@ -29,31 +30,30 @@ SMODS.Joker{ --Loss Leader
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
     end,
-
+    
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
-    func = function()
-        for k, v in pairs(G.I.CARD) do
-            if v.set_cost then v:set_cost() end
-        end
-        return true
-    end
-}))
+            func = function()
+                for k, v in pairs(G.I.CARD) do
+                if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
     end,
-
+    
     remove_from_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
-    func = function()
-        for k, v in pairs(G.I.CARD) do
-            if v.set_cost then v:set_cost() end
-        end
-        return true
-    end
-}))
+            func = function()
+                for k, v in pairs(G.I.CARD) do
+                if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
     end
 }
 
@@ -62,7 +62,7 @@ local card_set_cost_ref = Card.set_cost
 function Card:set_cost()
     card_set_cost_ref(self)
     
-    if next(SMODS.find_card("j_hatchet_lossleader")) then
+    if next(SMODS.find_card("j_hatch_lossleader")) then
         if (self.ability.set == 'Joker' or self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Enhanced' or self.ability.set == 'Booster' or self.ability.set == 'Voucher') then
             self.cost = math.max(0, math.floor(self.cost * (1 - (30) / 100)))
         end

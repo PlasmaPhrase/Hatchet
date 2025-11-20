@@ -1,10 +1,13 @@
+
 SMODS.Joker{ --Needle Nonsense
     key = "needlenonsense",
     config = {
         extra = {
             dollarvar = 0,
             n = 0,
-            start_dissolve = 0
+            start_dissolve = 0,
+            no = 0,
+            var1 = 0
         }
     },
     loc_txt = {
@@ -34,44 +37,54 @@ SMODS.Joker{ --Needle Nonsense
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
+    loc_vars = function(self, info_queue, card)
+        
+        return {vars = {card.ability.extra.dollarvar}}
+    end,
     
     calculate = function(self, card, context)
-    if context.end_of_round and context.game_over == false and context.main_eval  then
-        return {
-            func = function()
-                
-                for i = 1, math.min(1, G.consumeables.config.card_limit - #G.consumeables.cards) do
-                    G.E_MANAGER:add_event(Event({
-                    trigger = 'after',
-                    delay = 0.4,
-                    func = function()
-                        play_sound('timpani')
-                        SMODS.add_card({ set = 'Spectral', })                            
-                        card:juice_up(0.3, 0.5)
-                        return true
-                        end
-                    }))
-                end
-                delay(0.6)
-                
-                if created_consumable then
-                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
-                end
-                return true
+        if context.end_of_round and context.game_over == false and context.main_eval  then
+            return {
+                func = function()
+                    
+                    for i = 1, math.min(1, G.consumeables.config.card_limit - #G.consumeables.cards) do
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            delay = 0.4,
+                            func = function()
+                                play_sound('timpani')
+                                SMODS.add_card({ set = 'Spectral', })                            
+                                card:juice_up(0.3, 0.5)
+                                return true
+                            end
+                        }))
+                    end
+                    delay(0.6)
+                    
+                    if created_consumable then
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+                    end
+                    return true
                 end
             }
         end
         if context.cardarea == G.jokers and context.joker_main  then
             if not (G.GAME.current_round.hands_played == 0) then
-                return {
-                    func = function()
-                        card:start_dissolve()
-                        return true
+                local target_joker = card
+                
+                if target_joker then
+                    target_joker.getting_sliced = true
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            target_joker:start_dissolve({G.C.RED}, nil, 1.6)
+                            return true
                         end
-                    }
+                    }))
+                    card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "Destroyed!", colour = G.C.RED})
                 end
             end
         end
+    end
 }

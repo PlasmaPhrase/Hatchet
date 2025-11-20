@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Night Vision
     key = "nightvision",
     config = {
@@ -33,13 +34,12 @@ SMODS.Joker{ --Night Vision
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
-
+    pools = { ["hatch_hatchet_jokers"] = true },
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.xmult}}
     end,
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -56,8 +56,8 @@ SMODS.Joker{ --Night Vision
                 func = function()
                     card.ability.extra.xmult = 1
                     return true
-                    end
-                }
-            end
+                end
+            }
         end
+    end
 }

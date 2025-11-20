@@ -1,8 +1,10 @@
+
 SMODS.Joker{ --Etz Chaim
     key = "etzchaim",
     config = {
         extra = {
-            xmult = 1
+            xmult = 1,
+            text = 0
         }
     },
     loc_txt = {
@@ -31,25 +33,24 @@ SMODS.Joker{ --Etz Chaim
     unlocked = false,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     soul_pos = {
         x = 6,
         y = 4
     },
     in_pool = function(self, args)
-          return (
-          not args 
-          or args.source ~= 'sho' and args.source ~= 'buf' and args.source ~= 'jud' and args.source ~= 'sou' 
-          or args.source == 'rif' or args.source == 'rta' or args.source == 'uta' or args.source == 'wra'
-          )
-          and true
-      end,
-
+        return (
+            not args 
+            or args.source ~= 'sho' and args.source ~= 'buf' and args.source ~= 'jud' and args.source ~= 'sou' 
+            or args.source == 'rif' or args.source == 'rta' or args.source == 'uta' or args.source == 'wra'
+        )
+        and true
+    end,
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.xmult}}
     end,
-
     
     calculate = function(self, card, context)
         if context.using_consumeable  then
@@ -57,8 +58,8 @@ SMODS.Joker{ --Etz Chaim
                 func = function()
                     card.ability.extra.xmult = (card.ability.extra.xmult) + 1
                     return true
-                    end,
-                    extra = {
+                end,
+                extra = {
                     message = "X1",
                     colour = G.C.RED
                 }
@@ -74,7 +75,7 @@ SMODS.Joker{ --Etz Chaim
 
 local check_for_buy_space_ref = G.FUNCS.check_for_buy_space
 G.FUNCS.check_for_buy_space = function(card)
-    if card.config.center.key == "j_hatchet_etzchaim" then -- ignore slot limit when bought
+    if card.config.center.key == "j_hatch_etzchaim" then -- ignore slot limit when bought
         return true
     end
     return check_for_buy_space_ref(card)
@@ -82,10 +83,10 @@ end
 
 local can_select_card_ref = G.FUNCS.can_select_card
 G.FUNCS.can_select_card = function(e)
-	if e.config.ref_table.config.center.key == "j_hatchet_etzchaim" then
-		e.config.colour = G.C.GREEN
-		e.config.button = "use_card"
-	else
-		can_select_card_ref(e)
-	end
+    	if e.config.ref_table.config.center.key == "j_hatch_etzchaim" then
+        		e.config.colour = G.C.GREEN
+        		e.config.button = "use_card"
+    	else
+        		can_select_card_ref(e)
+    	end
 end

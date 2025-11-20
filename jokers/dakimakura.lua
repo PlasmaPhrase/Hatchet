@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Dakimakura
     key = "dakimakura",
     config = {
@@ -31,7 +32,6 @@ SMODS.Joker{ --Dakimakura
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  and not context.blueprint then
@@ -39,8 +39,8 @@ SMODS.Joker{ --Dakimakura
                 assert(SMODS.change_base(context.other_card, pseudorandom_element(SMODS.Suits, 'edit_card_suit').key, nil))
                 return {
                     message = "Card Modified!"
-                    }
-                end
+                }
             end
         end
+    end
 }

@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Blue Card
     key = "bluecard",
     config = {
@@ -31,12 +32,11 @@ SMODS.Joker{ --Blue Card
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.chipsvar}}
     end,
-
     
     calculate = function(self, card, context)
         if context.skipping_booster  and not context.blueprint then
@@ -44,14 +44,14 @@ SMODS.Joker{ --Blue Card
                 func = function()
                     card.ability.extra.chipsvar = (card.ability.extra.chipsvar) + 10
                     return true
-                    end,
-                    message = "+10"
-                }
-            end
-            if context.cardarea == G.jokers and context.joker_main  then
-                return {
-                    chips = card.ability.extra.chipsvar
-                }
-            end
+                end,
+                message = "+10"
+            }
         end
+        if context.cardarea == G.jokers and context.joker_main  then
+            return {
+                chips = card.ability.extra.chipsvar
+            }
+        end
+    end
 }

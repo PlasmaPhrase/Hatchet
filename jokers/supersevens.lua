@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Super Sevens
     key = "supersevens",
     config = {
@@ -32,12 +33,11 @@ SMODS.Joker{ --Super Sevens
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
+    
     loc_vars = function(self, info_queue, card)
         
         return {vars = {card.ability.extra.seven}}
     end,
-
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  and not context.blueprint then

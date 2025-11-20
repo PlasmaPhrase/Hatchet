@@ -1,3 +1,4 @@
+
 SMODS.Joker{ --Black Joker
     key = "blackjoker",
     config = {
@@ -34,16 +35,15 @@ SMODS.Joker{ --Black Joker
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     in_pool = function(self, args)
-          return (
-          not args 
-          or args.source ~= 'jud' 
-          or args.source == 'sho' or args.source == 'buf' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
-          )
-          and true
-      end,
-
+        return (
+            not args 
+            or args.source ~= 'jud' 
+            or args.source == 'sho' or args.source == 'buf' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+        )
+        and true
+    end,
     
     calculate = function(self, card, context)
         if context.selling_self  then
@@ -57,31 +57,32 @@ SMODS.Joker{ --Black Joker
                     
                     if target_joker then
                         G.E_MANAGER:add_event(Event({
-                        func = function()
-                            local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
-                            copied_joker:set_edition("e_negative", true)
-                            
-                            copied_joker:add_to_deck()
-                            G.jokers:emplace(copied_joker)
-                            return true
+                            func = function()
+                                local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
+                                copied_joker:set_edition("e_negative", true)
+                                
+                                copied_joker:add_to_deck()
+                                G.jokers:emplace(copied_joker)
+                                return true
                             end
                         }))
                         card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
                     end
                     return true
-                    end,
-                    extra = {
+                end,
+                extra = {
+                    
                     func = function()
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.hands).." Hand", colour = G.C.RED})
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.hands).." Hands", colour = G.C.RED})
                         
                         G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
                         ease_hands_played(-card.ability.extra.hands)
                         
                         return true
-                        end,
-                        colour = G.C.GREEN
-                    }
+                    end,
+                    colour = G.C.GREEN
                 }
-            end
+            }
         end
+    end
 }
