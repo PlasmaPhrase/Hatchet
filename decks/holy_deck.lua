@@ -1,7 +1,7 @@
 SMODS.Back {
     key = 'holy_deck',
     pos = { x = 1, y = 0 },
-    config = { sephirot_rate = 4, consumables = { 'c_hatchet_kether' }  },
+    config = { sephirot_rate = 2, consumables = { 'c_hatch_kether' }  },
     loc_txt = {
         name = 'Holy Deck',
         text = {

@@ -1,10 +1,8 @@
+
 SMODS.Back {
     key = 'orange_deck',
     pos = { x = 0, y = 0 },
-    config = {
-      hand_size_value = 6,
-        discards_value = 2,
-},
+    config = {hand_size = 4, discards = 2},
     loc_txt = {
         name = 'Orange Deck',
         text = {
@@ -16,8 +14,7 @@ SMODS.Back {
     discovered = true,
     no_collection = false,
     atlas = 'CustomDecks',
-     apply = function(self, back)
-            G.GAME.starting_params.hand_size = 6
-            G.GAME.starting_params.discards = G.GAME.starting_params.discards + 2
-    end
+    loc_vars = function(self, info_queue, back)
+        return { vars = { self.config.hand_size, self.config.discards } }
+    end,
 }
