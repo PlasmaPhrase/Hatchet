@@ -1,3 +1,4 @@
+
 SMODS.Consumable {
     key = 'hod',
     set = 'sephirot',
@@ -5,17 +6,18 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Hod',
         text = {
-        [1] = 'Decreases rank of up to {C:attention}2{} selected cards by {C:attention}1{}'
-    }
+            [1] = 'Decreases rank of up to {C:attention}2{} selected cards by {C:attention}1{}'
+        }
     },
     cost = 3,
     unlocked = false,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
-    atlas = 'CustomConsumables',use = function(self, card, area, copier)
+    atlas = 'CustomConsumables',
+    use = function(self, card, area, copier)
         local used_card = copier or card
-        if (not (#G.hand.highlighted == 1) and #G.hand.highlighted <= 2) then
+        if (not (to_big(#G.hand.highlighted) == to_big(1)) and to_big(#G.hand.highlighted) <= to_big(2)) then
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -74,6 +76,6 @@ SMODS.Consumable {
         end
     end,
     can_use = function(self, card)
-        return ((not (#G.hand.highlighted == 1) and #G.hand.highlighted <= 2))
+        return ((not (to_big(#G.hand.highlighted) == to_big(1)) and to_big(#G.hand.highlighted) <= to_big(2)))
     end
 }

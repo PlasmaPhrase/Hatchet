@@ -1,6 +1,6 @@
 SMODS.Consumable {
     key = 'daat',
-    set = 'knowledge',
+    set = 'divine',
     pos = { x = 0, y = 1 },
     loc_txt = {
         name = 'Daat',
@@ -20,7 +20,7 @@ SMODS.Consumable {
                   delay = 0.4,
                   func = function()
                       play_sound('timpani')
-                      local new_joker = SMODS.add_card({ set = 'Joker', key = 'j_hatchet_etzchaim' })
+                      local new_joker = SMODS.add_card({ set = 'Joker', key = 'j_hatch_etzchaim' })
                       if new_joker then
                       end
                       used_card:juice_up(0.3, 0.5)

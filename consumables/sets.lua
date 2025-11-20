@@ -5,16 +5,16 @@ SMODS.ConsumableType {
     collection_rows = { 4, 5 },
     shop_rate = 0,
     cards = {
-        ['c_hatchet_kether'] = true,
-        ['c_hatchet_chokmah'] = true,
-        ['c_hatchet_binah'] = true,
-        ['c_hatchet_chesed'] = true,
-        ['c_hatchet_gevurah'] = true,
-        ['c_hatchet_tiferet'] = true,
-        ['c_hatchet_netzach'] = true,
-        ['c_hatchet_hod'] = true,
-        ['c_hatchet_yesod'] = true,
-        ['c_hatchet_malkuth'] = true
+        ['c_hatch_kether'] = true,
+        ['c_hatch_chokmah'] = true,
+        ['c_hatch_binah'] = true,
+        ['c_hatch_chesed'] = true,
+        ['c_hatch_gevurah'] = true,
+        ['c_hatch_tiferet'] = true,
+        ['c_hatch_netzach'] = true,
+        ['c_hatch_hod'] = true,
+        ['c_hatch_yesod'] = true,
+        ['c_hatch_malkuth'] = true
     },
     loc_txt = {
         name = "Sephirot",
@@ -23,16 +23,17 @@ SMODS.ConsumableType {
 }
 
 SMODS.ConsumableType {
-    key = 'knowledge',
-    primary_colour = HEX('0c827d'),
-    secondary_colour = HEX('0c827d'),
+    key = 'divine',
+    primary_colour = HEX('8078a7'),
+    secondary_colour = HEX('8078a7'),
     collection_rows = { 4, 5 },
     shop_rate = 0,
     cards = {
-        ['c_hatchet_daat'] = true
+        ['c_hatch_daat'] = true,
+        ['c_hatch_soulofhatchet'] = true
     },
     loc_txt = {
-        name = "???",
-        collection = "???",
+        name = "Divine",
+        collection = "Divine Cards",
     }
 }
