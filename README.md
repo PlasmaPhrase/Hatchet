@@ -1,5 +1,6 @@
 # Hatchet
 Vanilla-styled Balatro mod that adds new content!
+Current release is unstable!
 
 # Dependencies
 - [Steamodded](https://github.com/Steamodded/smods) (Required)
