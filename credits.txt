@@ -1,26 +1,26 @@
 This mod was developed using JokerForge and regular Lua (via Visual Studio Code).
 
-== Lead Developer + Artist ==
+== Lead Developer / Artist ==
 
 Plasma
 
-== Assets + Music ==
+== Art ==
 
-R4yvenn: Consumable Cards Font
-cebeedrawz: Consumable Cards Template
-ramuDotZip: Music in the Hatched Mod Release Trailer
+cassknows (divine shader)
 
 == Programming Help ==
 
 Eris
-Somethingcom515
+Somethingcom515 (Seals On Every)
 nh6754
 metanite64
 FreindlyBear
 srockw
+unusedparadox
 
 == Special Thanks ==
 
+aikoyori
 PokerthePoker
 Kaiwen
 nullstudios
@@ -29,4 +29,5 @@ Breuhh
 Sushi
 breuhh
 Jabon
-The Balatro Discord Modding Community
+Jokerforge Discord Community
+Balatro Discord Community
