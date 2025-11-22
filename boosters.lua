@@ -15,7 +15,6 @@ SMODS.Booster {
     atlas = "CustomBoosters",
     pos = { x = 0, y = 0 },
     kind = 'Sephirot',
-    group_key = "hatch_sephirot",
     draw_hand = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
@@ -27,7 +26,7 @@ SMODS.Booster {
         local _card
         if (G.GAME.daat_summon or 0) > 9 and i == 1 then
             _card = {
-                set = 'divine',
+                key = 'c_hatch_daat',
                 area = G.pack_cards,
                 skip_materialize = true,
                 soulable = true,
@@ -82,7 +81,6 @@ SMODS.Booster {
     atlas = "CustomBoosters",
     pos = { x = 1, y = 0 },
     kind = 'Sephirot',
-    group_key = "hatch_sephirot",
     draw_hand = true,
     loc_vars = function(self, info_queue, card)
         local cfg = (card and card.ability) or self.config
@@ -147,9 +145,8 @@ end,
     config = { extra = 3, choose = 1 },
     weight = 1,
     atlas = "CustomBoosters",
-    pos = { x = 0, y = 0 },
+    pos = { x = 2, y = 0 },
     kind = 'Sephirot',
-    group_key = "hatch_sephirot",
     draw_hand = true,
     discovered = false,
     loc_vars = function(self, info_queue, card)
@@ -215,9 +212,8 @@ SMODS.Booster {
     config = { extra = 3, choose = 1 },
     weight = 1,
     atlas = "CustomBoosters",
-    pos = { x = 1, y = 0 },
+    pos = { x = 3, y = 0 },
     kind = 'Sephirot',
-    group_key = "hatch_sephirot",
     draw_hand = true,
     discovered = false,
     loc_vars = function(self, info_queue, card)
