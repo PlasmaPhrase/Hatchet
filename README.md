@@ -1,6 +1,5 @@
 # Hatchet
-Vanilla-styled Balatro mod that adds new content!
-Current release is unstable!
+A content-based Balatro mod that adds new Jokers, consumables, and more!
 
 # Dependencies
 - [Steamodded](https://github.com/Steamodded/smods) (Required)
