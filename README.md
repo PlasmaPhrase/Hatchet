@@ -21,7 +21,6 @@ This mod may not be compatible with other pre-existing mods.
 - 1 skip tag
 
 # Known Bugs
-- Divine Jokers do not work as of current
-- _Wheelbarrow_ does not indicate Mult gain
-- Sephirot packs return with ERROR
+- _Wheelbarrow_ and _Diary Entry_ do not indicate Mult gain
+- _Loss Leader_ does not work
 - Some Sephirot packs only contain Jokers, for some reason?
