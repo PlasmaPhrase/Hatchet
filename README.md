@@ -21,3 +21,4 @@ This mod may not be compatible with other pre-existing mods.
 - _Wheelbarrow_ and _Diary Entry_ do not indicate Mult gain
 - _Loss Leader_ does not work
 - Some Sephirot packs only contain Jokers, for some reason?
+- _Soul of Hatchet_ is very broken, it somehow works with multiple other Jokers, including _Divine Hatchet_ itself, resetting the Divine timer. **Use with caution.**
