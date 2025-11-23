@@ -8,17 +8,14 @@ A content-based Balatro mod that adds new Jokers, consumables, and more!
 This mod may not be compatible with other pre-existing mods. 
 
 # Current Features
-- 40 Jokers
+- 47 Jokers
 - 2 Decks
-- 10+ Consumables
+- 5 Boss Blinds
+- 13 Consumables
+- 1 custom challenge
 
 # Planned Features
-- 120 total Jokers
-- 40 total Consumables
-- 3 total Decks
-- 3 Boss Blinds
-- 2 custom Challenges
-- 1 skip tag
+- None (on indefinite hiatus)
 
 # Known Bugs
 - _Wheelbarrow_ and _Diary Entry_ do not indicate Mult gain
