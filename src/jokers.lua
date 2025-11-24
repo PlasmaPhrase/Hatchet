@@ -852,18 +852,21 @@ SMODS.Joker{
     key = "loss_leader",
     config = {
         extra = {
+            discount = 30
         }
     },
     loc_txt = {
         ['name'] = 'Loss Leader',
         ['text'] = {
-            [1] = 'All items in the shop are {C:attention}30%{} off'
+            [1] = 'All items in the',
+            [2] = 'shop are {C:attention}30%{} off'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
     pos = { x = 5, y = 1 },
+    pixel_size = { h = 71 },
     cost = 2,
     rarity = 1,
     blueprint_compat = true,
@@ -877,7 +880,9 @@ SMODS.Joker{
         G.E_MANAGER:add_event(Event({
             func = function()
                 for k, v in pairs(G.I.CARD) do
-                    if v.set_cost then v:set_cost() end
+                    if v.set_cost then
+                        v:set_cost()
+                    end
                 end
                 return true
             end
@@ -888,7 +893,9 @@ SMODS.Joker{
         G.E_MANAGER:add_event(Event({
             func = function()
                 for k, v in pairs(G.I.CARD) do
-                    if v.set_cost then v:set_cost() end
+                    if v.set_cost then
+                        v:set_cost()
+                    end
                 end
                 return true
             end
@@ -899,16 +906,10 @@ SMODS.Joker{
 local card_set_cost_ref = Card.set_cost
 function Card:set_cost()
     card_set_cost_ref(self)
-    
-    if next(SMODS.find_card("j_hatchet_lossleader")) then
-        if (self.ability.set == 'Joker' or self.ability.set == 'Tarot' or self.ability.set == 'Planet' or self.ability.set == 'Spectral' or self.ability.set == 'Enhanced' or self.ability.set == 'Booster' or self.ability.set == 'Voucher') then
-            self.cost = math.max(0, math.floor(self.cost * (1 - (30) / 100)))
-        end
+    local ll = SMODS.find_card("j_hatch_loss_leader")
+    if next(ll) then
+        self.cost = math.max(0, math.floor(self.cost * (1 - ll[1].ability.extra.discount / 100))) end
     end
-    
-    self.sell_cost = math.max(1, math.floor(self.cost / 2)) + (self.ability.extra_value or 0)
-    self.sell_cost_label = self.facing == 'back' and '?' or self.sell_cost
-end
 
 -- Blue Card
 SMODS.Joker{
@@ -2125,27 +2126,24 @@ SMODS.Joker{
     key = "wheelbarrow",
     config = {
         extra = {
-            multvar = 1
+            odds = 2,
+            xmult = 1
         }
     },
     loc_txt = {
         ['name'] = 'Wheelbarrow',
         ['text'] = {
-            [1] = 'Gains {X:red,C:white}X0.2{} Mult per round',
-            [2] = '{C:green}1 in 2{} cards get drawn face down',
+            [1] = '{C:green}#1# in #2#{} cards are',
+            [2] = 'drawn face down',
+            [3] = 'This Joker gains {X:red,C:white}X0.2{} Mult',
+            [4] = 'at end of round',
+            [5] = '{C:inactive}(Currently {C:white,X:mult}X#3#{C:inactive} Mult)'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = {
-        x = 6,
-        y = 3
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = {x = 6, y = 3},
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -2156,43 +2154,27 @@ SMODS.Joker{
     atlas = 'CustomJokers',
     
     loc_vars = function(self, info_queue, card)   
-        local numerator, denominator = SMODS.get_probability_vars(self, 1, 2, 'wheelbarrow')
-        return {vars = {numerator, denominator, card.ability.extra.multvar}}
-    end,
-
-    collection_loc_vars = function(self)
-        return { vars = { '1' } }
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatch_wheelbarrow')
+        return { vars = { numerator, denominator, card.ability.extra.xmult } }
     end,
 
     calculate = function(self, card, context)
-            if context.stay_flipped and context.to_area == G.hand and
-                SMODS.pseudorandom_probability(card, 'wheelbarrow', 1, 2) then
-                return {
-                    stay_flipped = true
-                }
-            end
-        if context.end_of_round and context.game_over == false and context.main_eval  then
+        if context.stay_flipped and context.to_area == G.hand and  SMODS.pseudorandom_probability(card, 'j_hatch_wheelbarrow', 1, card.ability.extra.odds) then
             return {
-                func = function()
-                    card.ability.extra.multvar = (card.ability.extra.multvar) + 0.5
-                    return true
-                end
+                stay_flipped = true
             }
         end
-        if context.cardarea == G.jokers and context.joker_main  then
+        if context.end_of_round and context.game_over == false and context.main_eval then
+            card.ability.extra.xmult = card.ability.extra.xmult + 0.2
             return {
-                Xmult = card.ability.extra.multvar
+                message = "Upgrade!", 
+                colour = G.C.MULT
             }
         end
-    end,
-    disable = function(self)
-        for i = 1, #G.hand.cards do
-            if G.hand.cards[i].facing == 'back' then
-                G.hand.cards[i]:flip()
-            end
-        end
-        for _, playing_card in pairs(G.playing_cards) do
-            playing_card.ability.wheel_flipped = nil
+        if context.joker_main then
+            return {
+                Xmult = card.ability.extra.xmult
+            }
         end
     end
 }
