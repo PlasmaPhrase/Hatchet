@@ -8,6 +8,11 @@ Plasma
 
 cassknows (divine shader)
 
+== Programming ==
+
+Plasma
+kierkat10
+
 == Programming Help ==
 
 Eris
@@ -29,4 +34,5 @@ Breuhh
 Sushi
 breuhh
 Jabon
+
 Jokerforge Discord Community
