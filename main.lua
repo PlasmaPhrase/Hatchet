@@ -130,25 +130,45 @@ SMODS.ObjectType({
     },
 })
 
-SMODS.ConsumableType({
-    key = "divine",
-    name = "Divine",
-    primary_colour = { 0.408, 0.420, 0.647, 1 },
-    secondary_colour = { 0.306, 0.315, 0.485, 1 },
-    collection_rows = { 4, 4 },
-    shop_rate = 0,
-    default = "c_hatch_daat"
-})
+SMODS.ConsumableType {
+    key = 'divine',
+    primary_colour = HEX('484cdb'),
+    secondary_colour = HEX('484cdb'),
+    collection_rows = { 4, 5 },
+    shop_rate = 4,
+    cards = {
+        ['c_hatch_daat'] = true,
+        ['c_hatch_soulofhatchet'] = true
+    },
+    loc_txt = {
+        name = "Divine",
+        collection = "Divine Cards",
+    }
+}
 
-SMODS.ConsumableType({
-    key = "sephirot",
-    name = "Sephirot",
-    primary_colour = { 0.290, 0.541, 0.494, 1 },
-    secondary_colour = { 0.218, 0.406, 0.371, 1 },
-    collection_rows = { 4, 4 },
+SMODS.ConsumableType {
+    key = 'sephirot',
+    primary_colour = HEX('0ebab2'),
+    secondary_colour = HEX('0ebab2'),
+    collection_rows = { 4, 5 },
     shop_rate = 0,
-    default = "c_hatch_kether"
-})
+    cards = {
+        ['c_hatch_kether'] = true,
+        ['c_hatch_chokmah'] = true,
+        ['c_hatch_binah'] = true,
+        ['c_hatch_chesed'] = true,
+        ['c_hatch_gevurah'] = true,
+        ['c_hatch_tiferet'] = true,
+        ['c_hatch_netzach'] = true,
+        ['c_hatch_hod'] = true,
+        ['c_hatch_yesod'] = true,
+        ['c_hatch_malkuth'] = true
+    },
+    loc_txt = {
+        name = "Sephirot",
+        collection = "Sephirot Cards",
+    }
+}
 
 SMODS.current_mod.optional_features = function()
     return {

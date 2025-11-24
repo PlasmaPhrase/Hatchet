@@ -1,18 +1,4 @@
-SMODS.ConsumableType {
-    key = 'divine',
-    primary_colour = HEX('484cdb'),
-    secondary_colour = HEX('484cdb'),
-    collection_rows = { 4, 5 },
-    shop_rate = 4,
-    cards = {
-        ['c_hatch_daat'] = true,
-        ['c_hatch_soulofhatchet'] = true
-    },
-    loc_txt = {
-        name = "Divine",
-        collection = "Divine Cards",
-    }
-}
+
 
 -- Da'at
 SMODS.Consumable {

@@ -136,15 +136,15 @@ SMODS.Joker{
     key = "earthquake",
     config = {
         extra = {
-            multvar = 0
+            mult = 0
         }
     },
     loc_txt = {
         ['name'] = 'Earthquake',
         ['text'] = {
-            [1] = 'Gains {C:red}+2{} Mult every',
+            [1] = 'This Joker gains {C:red}+2{} Mult every',
             [2] = 'time a card is destroyed',
-            [3] = '(Currently {C:red}#1#{} Mult)'
+            [3] = '{C:inactive}(Currently {C:mult}#1#{} {C:inactive}Mult)'
         },
         ['unlock'] = {
             [1] = ''
@@ -161,17 +161,17 @@ SMODS.Joker{
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.multvar } }
+        return { vars = { card.ability.extra.mult } }
     end,
 
     calculate = function(self, card, context)
-        if context.joker_main  then
+        if context.joker_main then
             return {
-                mult = card.ability.extra.multvar
+                mult = card.ability.extra.mult
             }
         end
         if context.remove_playing_cards and not context.blueprint then
-            card.ability.extra.multvar = (card.ability.extra.multvar) + 2 * #context.removed
+            card.ability.extra.mult = card.ability.extra.mult + (2 * #context.removed)
         end
     end
 }
@@ -550,10 +550,13 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
-
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_investment
+        return { vars = {  } }
+    end,
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main  then
+        if context.joker_main then
             if (next(context.poker_hands["Three of a Kind"]) and (function()
                 local rankCount = 0
                 for i, c in ipairs(context.scoring_hand) do
@@ -592,7 +595,7 @@ SMODS.Joker{
 
 -- Old Photograph
 SMODS.Joker{
-    key = "oldphotograph",
+    key = "old_photograph",
     config = {
         extra = {
             odds = 2,
@@ -611,14 +614,7 @@ SMODS.Joker{
             [1] = ''
         }
     },
-    pos = {
-        x = 1,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 1, y = 1 },
     cost = 9,
     rarity = 3,
     blueprint_compat = true,
@@ -627,7 +623,6 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then
@@ -687,14 +682,7 @@ SMODS.Joker{
             [1] = ''
         }
     },
-    pos = {
-        x = 2,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 2, y = 1 },
     cost = 7,
     rarity = 2,
     blueprint_compat = false,
@@ -745,7 +733,7 @@ SMODS.Joker{
 
 -- Needle Nonsense
 SMODS.Joker{
-    key = "needlenonsense",
+    key = "needle_nonsense",
     config = {
         extra = {
             dollarvar = 0,
@@ -756,22 +744,15 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Needle Nonsense',
         ['text'] = {
-            [1] = 'Create a {C:spectral}Spectral{} when {C:attention}Blind {}is defeated',
-            [2] = '{C:red}Self destructs{} if your winning hand is',
-            [3] = 'not your {C:attention}first  hand{}'
+            [1] = 'Create a {C:spectral}Spectral{} card at end of round',
+            [2] = '{C:red}Self destructs{} if {C:attention}Blind{} is not',
+            [3] = 'beaten in one hand'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 3,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 3, y = 1 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -824,7 +805,7 @@ SMODS.Joker{
 
 -- Tricky Joker
 SMODS.Joker{
-    key = "trickyjoker",
+    key = "tricky_joker",
     config = {
         extra = {
             basediscardsperround = 0,
@@ -842,14 +823,7 @@ SMODS.Joker{
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 4,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 4, y = 1 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -859,7 +833,6 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
-
     
     calculate = function(self, card, context)
         if context.setting_blind  then
@@ -876,7 +849,7 @@ SMODS.Joker{
 
 -- Loss Leader
 SMODS.Joker{
-    key = "lossleader",
+    key = "loss_leader",
     config = {
         extra = {
         }
@@ -890,14 +863,7 @@ SMODS.Joker{
             [1] = ''
         }
     },
-    pos = {
-        x = 5,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 5, y = 1 },
     cost = 2,
     rarity = 1,
     blueprint_compat = true,
@@ -907,33 +873,28 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
 
-    
-    calculate = function(self, card, context)
-    end,
-
     add_to_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
-    func = function()
-        for k, v in pairs(G.I.CARD) do
-            if v.set_cost then v:set_cost() end
-        end
-        return true
-    end
-}))
+            func = function()
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
     end,
 
     remove_from_deck = function(self, card, from_debuff)
         G.E_MANAGER:add_event(Event({
-    func = function()
-        for k, v in pairs(G.I.CARD) do
-            if v.set_cost then v:set_cost() end
-        end
-        return true
-    end
-}))
+            func = function()
+                for k, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
     end
 }
-
 
 local card_set_cost_ref = Card.set_cost
 function Card:set_cost()
@@ -951,30 +912,24 @@ end
 
 -- Blue Card
 SMODS.Joker{
-    key = "bluecard",
+    key = "blue_card",
     config = {
         extra = {
-            chipsvar = 0
+            chips = 0
         }
     },
     loc_txt = {
         ['name'] = 'Blue Card',
         ['text'] = {
-            [1] = 'This Joker gains {C:chips}+10{} Chips when any {C:orange}Booster Pack{} is skipped',
-            [2] = '{C:inactive}(Currently{} {C:blue}+#1#{} {C:inactive}Chips){}'
+            [1] = 'This Joker gains {C:chips}+10{} Chips when',
+            [2] = 'any {C:orange}Booster Pack{} is skipped',
+            [3] = '{C:inactive}(Currently {C:blue}+#1#{C:inactive} Chips)'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = {
-        x = 6,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 6, y = 1 },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -985,27 +940,24 @@ SMODS.Joker{
     atlas = 'CustomJokers',
 
     loc_vars = function(self, info_queue, card)
-        
-        return {vars = {card.ability.extra.chipsvar}}
+        return { vars = { card.ability.extra.chips } }
     end,
 
     
     calculate = function(self, card, context)
-        if context.skipping_booster  and not context.blueprint then
+        if context.skipping_booster and not context.blueprint then
+            card.ability.extra.chips = (card.ability.extra.chips) + 10
             return {
-                func = function()
-                    card.ability.extra.chipsvar = (card.ability.extra.chipsvar) + 10
-                    return true
-                    end,
-                    message = "+10"
-                }
-            end
-            if context.cardarea == G.jokers and context.joker_main  then
-                return {
-                    chips = card.ability.extra.chipsvar
-                }
-            end
+                message = "Upgrade!",
+                colour = G.C.BLUE
+            }
         end
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
+    end
 }
 
 -- Dakimakura
@@ -1026,14 +978,7 @@ SMODS.Joker{
             [1] = ''
         }
     },
-    pos = {
-        x = 7,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 7, y = 1 },
     cost = 5,
     rarity = 1,
     blueprint_compat = false,
@@ -1042,7 +987,6 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play  and not context.blueprint then
@@ -1071,20 +1015,13 @@ SMODS.Joker{
             [1] = '{C:red}+1{} Mult per discard',
             [2] = 'Resets if no discards',
             [3] = 'are used in a round',
-            [4] = '{C:inactive}(Does not apply to The Water){}'
+            [4] = '{C:inactive}(Does not apply to {C:attention}The Water{C:inactive})'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = {
-        x = 8,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 8, y = 1 },
     cost = 5,
     rarity = 3,
     blueprint_compat = true,
@@ -1093,7 +1030,6 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -1136,20 +1072,14 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'D20',
         ['text'] = {
-            [1] = '{C:green}#1# in 20{} chance to get {C:money}$20{}'
+            [1] = '{C:green}#1# in 20{} chance to',
+            [2] = 'earn {C:money}$20{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 9,
-        y = 1
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 9, y = 1 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -1163,7 +1093,7 @@ SMODS.Joker{
     loc_vars = function(self, info_queue, card)
         
         local new_numerator, new_denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'j_hatchet_d20') 
-        return {vars = {new_numerator, new_denominator}}
+        return { vars = { new_numerator, new_denominator } }
     end,
 
     
@@ -1193,22 +1123,15 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Risky Revolver',
         ['text'] = {
-            [1] = '{C:green}1 in 6 chance{} to give {X:red,C:white}X4{} Mult',
-            [2] = '{C:green}1 in 6 chance{} to destroy a random Joker{}',
-            [3] = '{C:green}4 in 6 chance{} to do nothing'
+            [1] = '{C:green}1 in 6{} chance to give {X:red,C:white}X4{} Mult',
+            [2] = '{C:green}1 in 6{} chance to destroy a random Joker',
+            [3] = '{C:green}4 in 6{} chance to do nothing'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 0,
-        y = 2
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 0, y = 2 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -1218,10 +1141,9 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
-
     
     calculate = function(self, card, context)
-        if context.cardarea == G.jokers and context.joker_main  then
+        if context.joker_main  then
             if true then
                 if SMODS.pseudorandom_probability(card, 'group_0_c0e78a1c', 1, card.ability.extra.odds, 'j_hatchet_riskyrevolver', false) then
                     local destructable_jokers = {}
@@ -1263,21 +1185,14 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Sunset',
         ['text'] = {
-            [1] = 'On the first hand',
+            [1] = 'On the first hand,',
             [2] = 'double all played {C:blue}chips{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 1,
-        y = 2
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 1, y = 2 },
     cost = 5,
     rarity = 1,
     blueprint_compat = true,
@@ -1287,7 +1202,6 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
-
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -1316,7 +1230,7 @@ SMODS.Joker{
         ['text'] = {
             [1] = '{C:blue}+80{} Chips',
             [2] = 'Lasts 8 rounds',
-            [3] = '(Used {C:blue}#1#{} times)'
+            [3] = '{C:inactive}(Used {C:attention}#1#{C:inactive} times)'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -1461,20 +1375,14 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Pickpocket',
         ['text'] = {
-            [1] = 'Sell this card to create a free {C:attention}Coupon Tag{}'
+            [1] = 'Sell this card to create a',
+            [2] = 'free {C:attention}Coupon Tag{}'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = {
-        x = 4,
-        y = 2
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 4, y = 2 },
     cost = 7,
     rarity = 2,
     blueprint_compat = false,
@@ -1483,7 +1391,10 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_TAGS.tag_coupon
+        return { vars = {  } }
+    end,
     
     calculate = function(self, card, context)
         if context.selling_self  and not context.blueprint then
@@ -2180,20 +2091,14 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Snake Eyes',
         ['text'] = {
-            [1] = 'All {C:green}denominators{} are set to {C:attention}2{}'
+            [1] = 'All {C:attention}listed {C:green,E:1}denominators',
+            [2] = 'are set to {C:attention}2'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = {
-        x = 5,
-        y = 3
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 5, y = 3 },
     cost = 7,
     rarity = 2,
     blueprint_compat = true,
@@ -2202,7 +2107,6 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-
     
     calculate = function(self, card, context)
         if context.fix_probability  then
@@ -2425,7 +2329,7 @@ SMODS.Joker{
             [1] = 'Gain {C:red}+1{} Mult per {C:attention}discarded{} card.',
             [2] = 'On the {C:attention}final hand{} of the round, apply',
             [3] = 'the total Mult. Resets per {C:attention}round{}',
-            [4] = '{C:inactive}(Currently{} {C:red}#1#{}{C:inactive} Mult){}'
+            [4] = '{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)'
         },
         ['unlock'] = {
             [1] = ''
@@ -2621,20 +2525,14 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Wildside',
         ['text'] = {
-            [1] = 'Retrigger each played {C:attention}Wild Card{}'
+            [1] = 'Retrigger each',
+            [2] = 'played {C:attention}Wild Card{}'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 2,
-        y = 4
-    },
-    display_size = {
-        w = 71 * 1, 
-        h = 95 * 1
-    },
+    pos = { x = 2, y = 4 },
     cost = 9,
     rarity = 3,
     blueprint_compat = true,
@@ -2644,7 +2542,10 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
-
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
+        return { vars = {  } }
+    end,
     
     calculate = function(self, card, context)
         if context.repetition and context.cardarea == G.play  then
@@ -2717,8 +2618,8 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Giraffe',
         ['text'] = {
-            [1] = '{C:blue}+50{} Chips per reroll during this run',
-            [2] = '{C:inactive}{C:inactive}(Currently {}{C:blue}#1#{}{C:inactive} Chips){}'
+            [1] = '{C:blue}+50{} Chips per {C:attention}reroll{} this run',
+            [2] = '{C:inactive}(Currently {C:blue}+#1#{C:inactive} Chips)'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
