@@ -1,26 +1,4 @@
-SMODS.ConsumableType {
-    key = 'sephirot',
-    primary_colour = HEX('0ebab2'),
-    secondary_colour = HEX('0ebab2'),
-    collection_rows = { 4, 5 },
-    shop_rate = 0,
-    cards = {
-        ['c_hatch_kether'] = true,
-        ['c_hatch_chokmah'] = true,
-        ['c_hatch_binah'] = true,
-        ['c_hatch_chesed'] = true,
-        ['c_hatch_gevurah'] = true,
-        ['c_hatch_tiferet'] = true,
-        ['c_hatch_netzach'] = true,
-        ['c_hatch_hod'] = true,
-        ['c_hatch_yesod'] = true,
-        ['c_hatch_malkuth'] = true
-    },
-    loc_txt = {
-        name = "Sephirot",
-        collection = "Sephirot Cards",
-    }
-}
+
 
 -- Kether
 SMODS.Consumable {
@@ -30,15 +8,16 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Kether',
         text = {
-        [1] = '{C:inactive}Does nothing?{}'
-    }
+            [1] = '{C:inactive}Does nothing?{}'
+        }
     },
     cost = 0,
     unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
-    atlas = 'CustomConsumables',use = function(self, card, area, copier)
+    atlas = 'CustomConsumables',
+    use = function(self, card, area, copier)
         local used_card = copier or card
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
@@ -66,7 +45,6 @@ SMODS.Consumable {
                         end
                     }))
                     G.GAME.daat_summon = (G.GAME.daat_summon or 0) + 1
-                                       
                     play_sound('tarot2', 1, 0.4)
                     card:juice_up(0.3, 0.5)
                     return true
@@ -116,8 +94,8 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Chokmah',
         text = {
-        [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Sulfur Cards{}'
-    }
+            [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Sulfur Cards{}'
+        }
     },
     cost = 3,
     unlocked = false,
@@ -197,8 +175,8 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Binah',
         text = {
-        [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Mercury Cards{}'
-    }
+            [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Mercury Cards{}'
+        }
     },
     cost = 3,
     unlocked = false,
@@ -278,9 +256,9 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Chesed',
         text = {
-        [1] = 'Select {C:attention}3{} cards, all cards',
-        [2] = 'each receive a {C:green}random{} enhancement'
-    }
+            [1] = 'Select {C:attention}3{} cards, all cards',
+            [2] = 'each receive a {C:green}random{} enhancement'
+        }
     },
     cost = 3,
     unlocked = false,

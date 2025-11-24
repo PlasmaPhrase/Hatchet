@@ -1,18 +1,4 @@
-SMODS.ConsumableType {
-    key = 'divine',
-    primary_colour = HEX('484cdb'),
-    secondary_colour = HEX('484cdb'),
-    collection_rows = { 4, 5 },
-    shop_rate = 4,
-    cards = {
-        ['c_hatch_daat'] = true,
-        ['c_hatch_soulofhatchet'] = true
-    },
-    loc_txt = {
-        name = "Divine",
-        collection = "Divine Cards",
-    }
-}
+
 
 -- Da'at
 SMODS.Consumable {
@@ -22,28 +8,21 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Daat',
         text = {
-        [1] = 'Create {C:dark_edition}Etz Chaim{}'
-    }
+            [1] = 'Create {C:dark_edition}Etz Chaim{}'
+        }
     },
     cost = 10,
     unlocked = false,
     discovered = false,
     hidden = true,
     can_repeat_soul = false,
-    atlas = 'CustomConsumables',use = function(self, card, area, copier)
-        local used_card = copier or card
-            G.E_MANAGER:add_event(Event({
-                  trigger = 'after',
-                  delay = 0.4,
-                  func = function()
-                      play_sound('timpani')
-                      local new_joker = SMODS.add_card({ set = 'Joker', key = 'j_hatch_etzchaim' })
-                      used_card:juice_up(0.3, 0.5)
-                      return true
-                  end
-              }))
-              G.GAME.daat_summon = 0
-              delay(0.6)
+    atlas = 'CustomConsumables',
+    use = function(self, card, area, copier)
+        local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_hatch_etzchaim")
+        card:add_to_deck()
+        card:start_materialize()
+        G.jokers:emplace(card)
+        G.GAME.daat_summon = 0
     end,
     can_use = function(self, card)
         return true
@@ -52,7 +31,7 @@ SMODS.Consumable {
 
 -- Soul of Hatchet
 SMODS.Consumable {
-    key = 'soulofhatchet',
+    key = 'soul_of_hatchet',
     set = 'divine',
     pos = { x = 1, y = 1 },
     config = { 
@@ -66,7 +45,7 @@ SMODS.Consumable {
             [1] = 'A mysterious card with',
             [2] = 'a {C:enhanced}unique effect{}',
             [3] = '{C:inactive}(Cannot be used on',
-            [4] = 'stickered Jokers){}'
+            [4] = '{C:inactive}stickered Jokers){}'
         }
     },
     cost = 3,
@@ -82,32 +61,26 @@ SMODS.Consumable {
             G.E_MANAGER:add_event(Event({
                 func = function()
                     play_sound("hatch_mega")
-                    
                     return true
                 end,
             }))
             local jokers_to_destroy = {}
             local deletable_jokers = {}
-            
             for _, joker in pairs(G.jokers.cards) do
                 if joker.ability.set == 'Joker' and not SMODS.is_eternal(joker, card) then
                     deletable_jokers[#deletable_jokers + 1] = joker
                 end
             end
-            
             if #deletable_jokers > 0 then
                 local temp_jokers = {}
                 for _, joker in ipairs(deletable_jokers) do 
                     temp_jokers[#temp_jokers + 1] = joker 
                 end
-                
                 pseudoshuffle(temp_jokers, 98765)
-                
                 for i = 1, math.min(card.ability.extra.destroy_count, #temp_jokers) do
                     jokers_to_destroy[#jokers_to_destroy + 1] = temp_jokers[i]
                 end
             end
-            
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 delay = 0.4,
@@ -117,12 +90,11 @@ SMODS.Consumable {
                     return true
                 end
             }))
-            
-            local explode = nil
             G.E_MANAGER:add_event(Event({
                 trigger = 'before',
                 delay = 0.75,
                 func = function()
+                    local explode = nil
                     for _, joker in pairs(jokers_to_destroy) do
                         joker:explode(nil, explode)
                         explode = true
@@ -136,7 +108,7 @@ SMODS.Consumable {
                 delay = 0.4,
                 func = function()
                     play_sound('timpani')
-                    local new_joker = SMODS.add_card({ set = 'Joker', key = 'j_hatch_divinehatchet' })
+                    local new_joker = SMODS.add_card({ set = 'Joker', key = 'j_hatch_divine_hatchet' })
                     if new_joker then
                         new_joker:set_edition("e_hatch_divine", true)
                     end
@@ -180,7 +152,7 @@ SMODS.Consumable {
         end
     end,
     can_use = function(self, card)
-        if #G.jokers.highlighted ~= 1 then
+        if #G.jokers.highlighted ~= 1 or G.jokers.highlighted[1].config.center.key ~= 'j_hatch_hatchet' then
             return false
         end
         local joker = G.jokers.highlighted[1]
