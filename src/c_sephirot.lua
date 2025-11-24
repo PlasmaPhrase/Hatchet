@@ -6,15 +6,16 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Kether',
         text = {
-        [1] = '{C:inactive}Does nothing?{}'
-    }
+            [1] = '{C:inactive}Does nothing?{}'
+        }
     },
     cost = 0,
     unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
-    atlas = 'CustomConsumables',use = function(self, card, area, copier)
+    atlas = 'CustomConsumables',
+    use = function(self, card, area, copier)
         local used_card = copier or card
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
@@ -42,7 +43,6 @@ SMODS.Consumable {
                         end
                     }))
                     G.GAME.daat_summon = (G.GAME.daat_summon or 0) + 1
-                                       
                     play_sound('tarot2', 1, 0.4)
                     card:juice_up(0.3, 0.5)
                     return true
@@ -92,8 +92,8 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Chokmah',
         text = {
-        [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Sulfur Cards{}'
-    }
+            [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Sulfur Cards{}'
+        }
     },
     cost = 3,
     unlocked = false,
@@ -173,8 +173,8 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Binah',
         text = {
-        [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Mercury Cards{}'
-    }
+            [1] = 'Enhances {C:attention}2{} selected cards to {C:attention}Mercury Cards{}'
+        }
     },
     cost = 3,
     unlocked = false,
@@ -254,9 +254,9 @@ SMODS.Consumable {
     loc_txt = {
         name = 'Chesed',
         text = {
-        [1] = 'Select {C:attention}3{} cards, all cards',
-        [2] = 'each receive a {C:green}random{} enhancement'
-    }
+            [1] = 'Select {C:attention}3{} cards, all cards',
+            [2] = 'each receive a {C:green}random{} enhancement'
+        }
     },
     cost = 3,
     unlocked = false,

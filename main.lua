@@ -130,6 +130,25 @@ SMODS.ObjectType({
     },
 })
 
+SMODS.ConsumableType({
+    key = "divine",
+    name = "Divine",
+    primary_colour = { 0.408, 0.420, 0.647, 1 },
+    secondary_colour = { 0.306, 0.315, 0.485, 1 },
+    collection_rows = { 4, 4 },
+    shop_rate = 0,
+    default = "c_hatch_daat"
+})
+
+SMODS.ConsumableType({
+    key = "sephirot",
+    name = "Sephirot",
+    primary_colour = { 0.290, 0.541, 0.494, 1 },
+    secondary_colour = { 0.218, 0.406, 0.371, 1 },
+    collection_rows = { 4, 4 },
+    shop_rate = 0,
+    default = "c_hatch_kether"
+})
 
 SMODS.current_mod.optional_features = function()
     return {
