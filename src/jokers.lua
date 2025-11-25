@@ -68,7 +68,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
     if context.end_of_round and context.game_over == false and context.main_eval  then
@@ -111,7 +111,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -464,16 +464,23 @@ SMODS.Joker{
     loc_txt = {
         ['name'] = 'Black Joker',
         ['text'] = {
-            [1] = 'When this card is sold, add',
-            [2] = '{C:dark_edition}Negative{} to a random {C:attention}Joker',
-            [3] = 'and {C:blue}-1{} hand per round'
+            [1] = 'When this card is sold',
+            [2] = 'Add {C:enhanced}Negative {}to a random {C:attention}Joker.{}',
+            [3] = '{C:blue}-1{} hand per round'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = { x = 9, y = 0 },
-    cost = 9,
+    pos = {
+        x = 9,
+        y = 0
+    },
+    display_size = {
+        w = 71 * 1, 
+        h = 95 * 1
+    },
+    cost = 5,
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
@@ -483,41 +490,54 @@ SMODS.Joker{
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
     in_pool = function(self, args)
-        return (
-            not args 
-            or args.source ~= 'jud' 
-            or args.source == 'sho' or args.source == 'buf' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
-        )
-        and true
-    end,
+          return (
+          not args 
+          or args.source ~= 'jud' 
+          or args.source == 'sho' or args.source == 'buf' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+          )
+          and true
+      end,
+
+    
     calculate = function(self, card, context)
-        if context.selling_self then
-            local available_jokers = {}
-            for i, joker in ipairs(G.jokers.cards) do
-                table.insert(available_jokers, joker)
-            end
-            local target_joker = #available_jokers > 0 and pseudorandom_element(available_jokers, pseudoseed('copy_joker')) or nil
-            if target_joker then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
-                        copied_joker:set_edition("e_negative", true)
-                        copied_joker:add_to_deck()
-                        G.jokers:emplace(copied_joker)
-                        return true
+        if context.selling_self  then
+            return {
+                func = function()
+                    local available_jokers = {}
+                    for i, joker in ipairs(G.jokers.cards) do
+                        table.insert(available_jokers, joker)
                     end
-                }))
-                card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
+                    local target_joker = #available_jokers > 0 and pseudorandom_element(available_jokers, pseudoseed('copy_joker')) or nil
+                    
+                    if target_joker then
+                        G.E_MANAGER:add_event(Event({
+                        func = function()
+                            local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
+                            copied_joker:set_edition("e_negative", true)
+                            
+                            copied_joker:add_to_deck()
+                            G.jokers:emplace(copied_joker)
+                            return true
+                            end
+                        }))
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
+                    end
+                    return true
+                    end,
+                    extra = {
+                    func = function()
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.hands).." Hand", colour = G.C.RED})
+                        
+                        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+                        ease_hands_played(-card.ability.extra.hands)
+                        
+                        return true
+                        end,
+                        colour = G.C.GREEN
+                    }
+                }
             end
-            return true
         end
-        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
-        ease_hands_played(-card.ability.extra.hands)
-        return {
-            message = "-"..tostring(card.ability.extra.hands).." Hand",
-            colour = G.C.RED
-        }
-    end
 }
 
 -- Musketeer
@@ -549,7 +569,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_TAGS.tag_investment
         return { vars = {  } }
@@ -761,7 +781,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -832,7 +852,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.setting_blind  then
@@ -1089,7 +1109,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -1141,7 +1161,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.joker_main  then
@@ -1202,7 +1222,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     
     calculate = function(self, card, context)
         if context.cardarea == G.jokers and context.joker_main  then
@@ -1253,7 +1273,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -1542,7 +1562,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -1702,7 +1722,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -1766,7 +1786,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -1816,7 +1836,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -1889,7 +1909,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -1959,7 +1979,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -2213,7 +2233,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -2264,7 +2284,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -2333,7 +2353,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -2463,7 +2483,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -2523,7 +2543,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS.m_wild
         return { vars = {  } }
@@ -2575,7 +2595,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     
     calculate = function(self, card, context)
@@ -2623,7 +2643,7 @@ SMODS.Joker{
     unlocked = true,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
 
     loc_vars = function(self, info_queue, card)
         
@@ -2671,7 +2691,7 @@ SMODS.Joker{
     },
     pos = { x = 7, y = 4 },
     cost = 9,
-    rarity = 3,
+    rarity = "hatch_evolved",
     blueprint_compat = true,
     eternal_compat = false,
     perishable_compat = false,
@@ -2785,7 +2805,7 @@ SMODS.Joker{
     unlocked = false,
     discovered = false,
     atlas = 'CustomJokers',
-    pools = { ["hatchet_hatchet_jokers"] = true },
+    pools = { ["hatch_hatchet_jokers"] = true },
     soul_pos = { x = 6, y = 4 },
     in_pool = function(self, args)
         return (

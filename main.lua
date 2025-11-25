@@ -1,3 +1,4 @@
+--ATLASES
 SMODS.Atlas({
     key = "modicon", 
     path = "ModIcon.png", 
@@ -65,15 +66,18 @@ SMODS.Atlas({
     atlas_table = "ANIMATION_ATLAS"
 })
 
+-- idk what this does
 local NFS = require("nativefs")
 to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
+--loading src files
 assert(SMODS.load_file('src/jokers.lua'))()
 assert(SMODS.load_file("src/c_sephirot.lua"))()
 assert(SMODS.load_file("src/c_divine.lua"))()
 assert(SMODS.load_file("sounds.lua"))()
 assert(SMODS.load_file("src/backs.lua"))()
+assert(SMODS.load_file("src/blinds.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/editions.lua"))()
 assert(SMODS.load_file("src/challenges.lua"))()
@@ -175,3 +179,19 @@ SMODS.current_mod.optional_features = function()
         cardareas = {} 
     }
 end
+
+-- rarities
+SMODS.Rarity {
+    key = "evolved",
+    pools = {
+        ["Joker"] = true
+    },
+    default_weight = 0,
+    badge_colour = HEX('4a90e2'),
+    loc_txt = {
+        name = "Evolved"
+    },
+    get_weight = function(self, weight, object_type)
+        return weight
+    end,
+}
