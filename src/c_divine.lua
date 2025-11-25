@@ -18,7 +18,7 @@ SMODS.Consumable {
     can_repeat_soul = false,
     atlas = 'CustomConsumables',
     use = function(self, card, area, copier)
-        local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_hatch_etzchaim")
+        local card = create_card("Joker", G.jokers, nil, nil, nil, nil, "j_hatch_etz_chaim")
         card:add_to_deck()
         card:start_materialize()
         G.jokers:emplace(card)

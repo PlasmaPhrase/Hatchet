@@ -7,7 +7,7 @@
   "description": "A Balatro mod that adds new Jokers, consumables, and much more!",
   "prefix": "hatch",
   "main_file": "main.lua",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "priority": 0,
   "badge_colour": "333d4f",
   "badge_text_colour": "d6cff3",
