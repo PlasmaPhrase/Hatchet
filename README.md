@@ -18,4 +18,4 @@ This mod may not be compatible with other pre-existing mods.
 - None (on indefinite hiatus)
 
 # Known Bugs
-- For some reason, some Sephirot packs only contain Jokers
+- None!
