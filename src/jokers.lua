@@ -1,6 +1,6 @@
 -- Proud Joker
 SMODS.Joker{
-    key = "proud_joker",
+    key = "proudjoker",
     config = {
         extra = {
             mult = 3
@@ -453,25 +453,34 @@ SMODS.Joker{
 
 -- Black Joker
 SMODS.Joker{
-    key = "black_joker",
+    key = "blackjoker",
     config = {
         extra = {
-            hands = 1
+            hands = 1,
+            respect = 0,
+            permanent = 0
         }
     },
     loc_txt = {
         ['name'] = 'Black Joker',
         ['text'] = {
-            [1] = 'When this card is sold, duplicate',
-            [2] = 'a random {C:attention}Joker{} as {C:dark_edition}Negative',
-            [3] = 'and {C:blue}-1{} hand per round'
+            [1] = 'When this card is sold',
+            [2] = 'Add {C:enhanced}Negative {}to a random {C:attention}Joker.{}',
+            [3] = '{C:blue}-1{} hand per round'
         },
         ['unlock'] = {
             [1] = ''
         }
     },
-    pos = { x = 9, y = 0 },
-    cost = 9,
+    pos = {
+        x = 9,
+        y = 0
+    },
+    display_size = {
+        w = 71 * 1, 
+        h = 95 * 1
+    },
+    cost = 5,
     rarity = 3,
     blueprint_compat = true,
     eternal_compat = true,
@@ -480,45 +489,55 @@ SMODS.Joker{
     discovered = false,
     atlas = 'CustomJokers',
     pools = { ["hatchet_hatchet_jokers"] = true },
-	loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue + 1] = G.P_CENTERS.e_negative
-        return { vars = {  } }
-    end,
     in_pool = function(self, args)
-        return (
-            not args 
-            or args.source ~= 'jud' 
-            or args.source == 'sho' or args.source == 'buf' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
-        )
-        and true
-    end,
+          return (
+          not args 
+          or args.source ~= 'jud' 
+          or args.source == 'sho' or args.source == 'buf' or args.source == 'rif' or args.source == 'rta' or args.source == 'sou' or args.source == 'uta' or args.source == 'wra'
+          )
+          and true
+      end,
+
+    
     calculate = function(self, card, context)
-        if context.selling_self then
-            local available_jokers = {}
-            for i, joker in ipairs(G.jokers.cards) do
-                table.insert(available_jokers, joker)
-            end
-            local target_joker = #available_jokers > 0 and pseudorandom_element(available_jokers, pseudoseed('copy_joker')) or nil
-            if target_joker then
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
-                        copied_joker:set_edition("e_negative", true)
-                        copied_joker:add_to_deck()
-                        G.jokers:emplace(copied_joker)
-                        return true
+        if context.selling_self  then
+            return {
+                func = function()
+                    local available_jokers = {}
+                    for i, joker in ipairs(G.jokers.cards) do
+                        table.insert(available_jokers, joker)
                     end
-                }))
-				card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
+                    local target_joker = #available_jokers > 0 and pseudorandom_element(available_jokers, pseudoseed('copy_joker')) or nil
+                    
+                    if target_joker then
+                        G.E_MANAGER:add_event(Event({
+                        func = function()
+                            local copied_joker = copy_card(target_joker, nil, nil, nil, target_joker.edition and target_joker.edition.negative)
+                            copied_joker:set_edition("e_negative", true)
+                            
+                            copied_joker:add_to_deck()
+                            G.jokers:emplace(copied_joker)
+                            return true
+                            end
+                        }))
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_duplicated_ex'), colour = G.C.GREEN})
+                    end
+                    return true
+                    end,
+                    extra = {
+                    func = function()
+                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = "-"..tostring(card.ability.extra.hands).." Hand", colour = G.C.RED})
+                        
+                        G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
+                        ease_hands_played(-card.ability.extra.hands)
+                        
+                        return true
+                        end,
+                        colour = G.C.GREEN
+                    }
+                }
             end
-			G.GAME.round_resets.hands = G.GAME.round_resets.hands - card.ability.extra.hands
-            ease_hands_played(-card.ability.extra.hands)
-			return {
-                message = "-" .. tostring(card.ability.extra.hands) .. " Hand",
-                colour = G.C.RED
-            }
         end
-    end
 }
 
 -- Musketeer
@@ -2650,6 +2669,159 @@ SMODS.Joker{
         end
 }
 
+-- Four-Leaf Clover Localisations
+
+local x_same_ref = get_X_same
+function get_X_same(num, hand, or_more)
+   if next(SMODS.find_card("j_hatch_fourleaf")) and num == 4 then
+      num = 3
+   end
+   return x_same_ref(num, hand, or_more)
+end
+
+-- Four-Leaf Clover
+SMODS.Joker{
+    key = "fourleaf",
+    config = {
+        extra = {type = 'Three of a Kind'}
+    },
+    loc_txt = {
+        ['name'] = 'Four-Leaf Clover',
+        ['text'] = {
+            [1] = '{C:attention}Four of a Kinds',
+            [2] = 'can be created with',
+            [3] = '{C:attention}Three of a Kind',
+        },
+    },
+    pos = { x = 5, y = 4 },
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = false,
+    atlas = 'CustomJokers',
+}
+
+-- Steel Ball
+SMODS.Joker{
+    key = "steelball",
+    config = { extra = {mult_gain = 2, mult = 0} },
+    loc_txt = {
+        ['name'] = 'Steel Ball',
+        ['text'] = {
+            [1] = 'Gains {C:red}+2{} Mult per {C:attention}Steel Card',
+            [2] = 'played per round',
+            [3] = '{C:inactive}(Currently {C:red}+#1#{C:inactive} Mult)',
+        },
+    },
+    pos = { x = 6, y = 4 },
+    cost = 5,
+    rarity = 1,
+    blueprint_compat = true,
+    eternal_compat = false,
+    perishable_compat = false,
+    unlocked = true,
+    discovered = false,
+    atlas = 'CustomJokers',
+
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.mult} }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and SMODS.has_enhancement(context.other_card, 'm_steel') then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.RED,
+                message_card = card
+            }
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end,
+}
+
+-- Etz Chaim
+SMODS.Joker{
+    key = "etz_chaim",
+    config = {
+        extra = {
+            xmult = 1
+        }
+    },
+    loc_txt = {
+        ['name'] = 'Etz Chaim',
+        ['text'] = {
+            [1] = 'This Joker gains {X:red,C:white}X1{} Mult per {C:attention}consumable{} used',
+            [2] = '{C:inactive}(Currently {X:red,C:white}X#1#{C:inactive} Mult)'
+        },
+        ['unlock'] = {
+            [1] = ''
+        }
+    },
+    pos = { x = 8, y = 8 },
+    cost = 20,
+    rarity = 4,
+    blueprint_compat = true,
+    eternal_compat = true,
+    perishable_compat = true,
+    unlocked = false,
+    discovered = false,
+    atlas = 'CustomJokers',
+    pools = { ["hatch_hatchet_jokers"] = true },
+    soul_pos = { x = 9, y = 8 },
+    in_pool = function(self, args)
+        return (
+            not args 
+            or args.source ~= 'sho' and args.source ~= 'buf' and args.source ~= 'jud' and args.source ~= 'sou' 
+            or args.source == 'rif' or args.source == 'rta' or args.source == 'uta' or args.source == 'wra'
+        )
+        and true
+    end,
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.xmult } }
+    end,
+    
+    calculate = function(self, card, context)
+        if context.using_consumeable then
+            card.ability.extra.xmult = (card.ability.extra.xmult) + 1
+            return {
+                message = "X" .. card.ability.extra.xmult .. " Mult",
+                colour = G.C.RED
+            }
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end
+}
+
+local check_for_buy_space_ref = G.FUNCS.check_for_buy_space
+G.FUNCS.check_for_buy_space = function(card)
+    if card.config.center.key == "j_hatchet_etzchaim" then -- ignore slot limit when bought
+        return true
+    end
+    return check_for_buy_space_ref(card)
+end
+
+local can_select_card_ref = G.FUNCS.can_select_card
+G.FUNCS.can_select_card = function(e)
+	if e.config.ref_table.config.center.key == "j_hatchet_etzchaim" then
+		e.config.colour = G.C.GREEN
+		e.config.button = "use_card"
+	else
+		can_select_card_ref(e)
+	end
+
+end
+
 -- Divine Hatchet
 SMODS.Joker{
     key = "divine_hatchet",
@@ -2670,7 +2842,7 @@ SMODS.Joker{
             [1] = 'Evolve Hatchet'
         }
     },
-    pos = { x = 7, y = 4 },
+    pos = { x = 0, y = 9 },
     cost = 9,
     rarity = "hatch_evolved",
     blueprint_compat = true,
@@ -2679,7 +2851,7 @@ SMODS.Joker{
     unlocked = false,
     discovered = false,
     atlas = 'CustomJokers',
-    soul_pos = { x = 8, y = 4 },
+    soul_pos = { x = 1, y = 9 },
     
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.divine } }
@@ -2758,79 +2930,3 @@ SMODS.Joker{
         end
     end
 }
-
--- Etz Chaim
-SMODS.Joker{
-    key = "etz_chaim",
-    config = {
-        extra = {
-            xmult = 1
-        }
-    },
-    loc_txt = {
-        ['name'] = 'Etz Chaim',
-        ['text'] = {
-            [1] = 'This Joker gains {X:red,C:white}X1{} Mult per {C:attention}consumable{} used',
-            [2] = '{C:inactive}(Currently {X:red,C:white}X#1#{C:inactive} Mult)'
-        },
-        ['unlock'] = {
-            [1] = ''
-        }
-    },
-    pos = { x = 5, y = 4 },
-    cost = 20,
-    rarity = 4,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
-    unlocked = false,
-    discovered = false,
-    atlas = 'CustomJokers',
-    pools = { ["hatch_hatchet_jokers"] = true },
-    soul_pos = { x = 6, y = 4 },
-    in_pool = function(self, args)
-        return (
-            not args 
-            or args.source ~= 'sho' and args.source ~= 'buf' and args.source ~= 'jud' and args.source ~= 'sou' 
-            or args.source == 'rif' or args.source == 'rta' or args.source == 'uta' or args.source == 'wra'
-        )
-        and true
-    end,
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.xmult } }
-    end,
-    
-    calculate = function(self, card, context)
-        if context.using_consumeable then
-            card.ability.extra.xmult = (card.ability.extra.xmult) + 1
-            return {
-                message = "X" .. card.ability.extra.xmult .. " Mult",
-                colour = G.C.RED
-            }
-        end
-        if context.joker_main then
-            return {
-                xmult = card.ability.extra.xmult
-            }
-        end
-    end
-}
-
-local check_for_buy_space_ref = G.FUNCS.check_for_buy_space
-G.FUNCS.check_for_buy_space = function(card)
-    if card.config.center.key == "j_hatchet_etzchaim" then -- ignore slot limit when bought
-        return true
-    end
-    return check_for_buy_space_ref(card)
-end
-
-local can_select_card_ref = G.FUNCS.can_select_card
-G.FUNCS.can_select_card = function(e)
-	if e.config.ref_table.config.center.key == "j_hatchet_etzchaim" then
-		e.config.colour = G.C.GREEN
-		e.config.button = "use_card"
-	else
-		can_select_card_ref(e)
-	end
-
-end
