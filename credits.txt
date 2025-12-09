@@ -8,11 +8,6 @@ Plasma
 
 cassknows (divine shader)
 
-== Programming ==
-
-Plasma
-kierkat10
-
 == Programming Help ==
 
 Eris
@@ -22,6 +17,7 @@ metanite64
 FreindlyBear
 srockw
 unusedparadox
+kierkat10
 
 == Special Thanks ==
 
@@ -34,5 +30,3 @@ Breuhh
 Sushi
 breuhh
 Jabon
-
-Jokerforge Discord Community

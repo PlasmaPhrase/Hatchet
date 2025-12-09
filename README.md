@@ -18,4 +18,5 @@ This mod may not be compatible with other pre-existing mods.
 - None (on indefinite hiatus)
 
 # Known Bugs
-- Divine Jokers don't fully work the way they are supposed to
+- Divine Jokers do not fully work!
+- Some files in the Github Commit refer to this update as v1.4.4 instead of v1.4.3!
