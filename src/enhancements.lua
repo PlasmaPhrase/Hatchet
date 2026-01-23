@@ -14,7 +14,7 @@ SMODS.Enhancement {
         }
     },
     atlas = 'CustomEnhancements',
-    any_suit = true,
+    any_suit = false,
     replace_base_card = false,
     no_rank = false,
     no_suit = false,
@@ -87,7 +87,7 @@ SMODS.Enhancement {
     loc_txt = {
         name = 'Salt',
         text = {
-        [1] = 'Enhanced card has a {C:green}#1# in 2{} chance',
+        [1] = 'Enhanced card has a {C:green}#1# in #2#{} chance',
         [2] = 'to retrigger twice when scored'
     }
     },
@@ -101,13 +101,19 @@ SMODS.Enhancement {
     discovered = true,
     no_collection = false,
     weight = 5,
+
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'm_hatch_salt')
+        return { vars = { numerator, denominator, card.ability.extra.Xmult } }
+    end,
+
     calculate = function(self, card, context)
         if context.repetition and card.should_retrigger then
             return { repetitions = card.ability.extra.retrigger_times }
         end
         if context.main_scoring and context.cardarea == G.play then
             card.should_retrigger = false
-            if SMODS.pseudorandom_probability(card, 'group_0_739e6c78', 1, card.ability.extra.odds, 'm_hatch_salt') then
+            if SMODS.pseudorandom_probability(card, 'm_hatch_salt', 1, card.ability.extra.odds, 'm_hatch_salt') then
                 card.should_retrigger = true
             card.ability.extra.retrigger_times = 2
             end

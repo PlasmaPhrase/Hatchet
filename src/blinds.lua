@@ -64,96 +64,64 @@ SMODS.Blind {
 end
 }
 
--- The Whip
-SMODS.Blind {
-    key = "hatch_whip",
-    dollars = 5,
-    mult = 2,
-    pos = { x = 0, y = 2 },
-    boss = { min = 2 },
-    boss_colour = HEX("cbb9a3"),
-    atlas = 'CustomBlinds',
-
-    loc_txt = {
-        ['name'] = 'The Whip',
-        ['text'] = {
-            [1] = 'No repeat suits',
-            [2] = 'this round',
-        },
-    },
-
-    calculate = function(self, blind, context)
-        if not blind.disabled then
-            if context.setting_blind then
-                blind.suits = {}
-                for _, poker_hand in ipairs(G.handlist) do
-                    blind.suits[poker_hand] = false
-                end
-            end
-            if context.debuff_hand then
-                if blind.suits[context.scoring_name] then
-                    blind.triggered = true
-                    return {
-                        debuff = true
-                    }
-                end
-                if not context.check then
-                    blind.suits[context.scoring_name] = true
-                end
-            end
-        end
-    end
-}
+-- The Whip (has been removed)
 
 -- The Cudgel
-SMODS.Blind {
-    key = "hatch_cudgel",
-    config = {
-        extra = {
-            currenthandsize = 0,
-            hand_size = 1
-        }
-    },
-    dollars = 5,
-    mult = 2,
-    pos = { x = 0, y = 3 },
-    boss = { min = 4 },
-    boss_colour = HEX("a652c0"),
-    atlas = 'CustomBlinds',
+SMODS.Blind({
+	key = "hatch_cudgel",
+	config = {
+		extra = {
+			hands_removed = 0,
+			hand_size = 1,
+		},
+	},
+	dollars = 5,
+	mult = 1,
+	pos = { x = 0, y = 3 },
+	boss = { min = 3 },
+	boss_colour = HEX("a652c0"),
+	atlas = "CustomBlinds",
 
-    loc_txt = {
-        ['name'] = 'The Cudgel',
-        ['text'] = {
-            [1] = 'Decrease hand size',
-            [2] = 'per played hand',
-        },
-    },
-
-    loc_vars = function(self, info_queue, blind)
-        return {vars = {((G.hand and G.hand.config.card_limit or 0) or 0)}}
+	loc_txt = {
+		["name"] = "The Cudgel",
+		["text"] = {
+			[1] = "Decrease hand size",
+			[2] = "per played hand",
+		},
+	},
+-- Credit to ThunderEdge for this code: I had no idea what I was doing but he helped me a ton! - Plasma
+	loc_vars = function(self)
+		return { vars = { self.config.extra.hands_removed } }
+	end,
+	calculate = function(self, blind, context)
+		if not blind.disabled then
+			if context.before then
+				return {
+					func = function()
+						G.hand:change_size(-1)
+						self.config.extra.hands_removed = self.config.extra.hands_removed + 1
+						return true
+					end,
+				}
+                -- Blinds require different code for end of round effects - ThunderEdge
+                -- Hence, I deleted the context.end_of_round checks - ThunderEdge
+			end
+		end
+	end,
+    -- Called when the blind is defeated - ThunderEdge
+    defeat = function(self)
+        G.hand:change_size(self.config.extra.hands_removed)
+        -- reset value
+        self.config.extra.hands_removed = 0
     end,
+    -- Called when the blind is disabled (e.g. Chicot) - ThunderEdge
+    disable = function (self)
+        G.hand:change_size(self.config.extra.hands_removed)
+        -- reset value
+        self.config.extra.hands_removed = 0
+    end,
+})
 
-    calculate = function(self, blind, context)
-        if not blind.disabled then
-            if context.before then
-                return {
-                    func = function()
-                        G.hand:change_size(-1)
-                        return true
-                    end
-                }
-            end
-            if context.end_of_round and context.game_over == false and context.main_eval  then
-                return { 
-                    func = function()
-                        G.hand:change_size(current_hand_size)
-                        return true
-                    end
-                }
-            end
-        end
-end
-}
 
 -- The Claw
 SMODS.Blind {

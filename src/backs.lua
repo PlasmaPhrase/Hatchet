@@ -31,7 +31,7 @@ SMODS.Back {
             [2] = 'shop, start with a {C:green}Kether{} card'
         },
     },
-    unlocked = false,
+    unlocked = true,
     atlas = 'CustomDecks',
 
     apply = function(self, back)
@@ -41,4 +41,56 @@ SMODS.Back {
     loc_vars = function(self, info_queue, back)
         return { vars = { self.config.sephirot_rate, self.config.consumables[1] } }
     end,
+    check_for_unlock = function(self, args)
+        return args.type == 'win_stake' and get_deck_win_stake() >= 10
+    end
+}
+
+-- Indigo Deck
+SMODS.Back {
+    key = 'indigo_deck',
+    pos = { x = 2, y = 0 },
+    loc_txt = {
+        name = 'Indigo Deck',
+        text = {
+            [1] = '{C:attention}+1{} booster pack per shop',
+        },
+    },
+    unlocked = false,
+    no_collection = false,
+    atlas = 'CustomDecks',
+
+    apply = function(self, back)
+        SMODS.change_booster_limit(1)
+    end,
+
+    check_for_unlock = function(self, args)
+        return args.type == 'win_stake' and get_deck_win_stake() >= 9
+    end
+}
+
+-- Violet Deck
+SMODS.Back {
+    key = 'violet_deck',
+    pos = { x = 3, y = 0 },
+    config = {hands = 1, discards = 1, ante_scaling = 2},
+    loc_txt = {
+        name = 'Violet Deck',
+        text = {
+            [1] = '{C:chips}+1{} hand and {C:mult}+1{}',
+            [2] = 'discard every round',
+            [3] = '{C:attention}X2{} base Blind size'
+        },
+    },
+    unlocked = false,
+    no_collection = false,
+    atlas = 'CustomDecks',
+
+    loc_vars = function(self, info_queue, back)
+        return { vars = { self.config.hands, self.config.discards, self.config.ante_scaling } }
+    end,
+
+    check_for_unlock = function(self, args)
+        return args.type == 'win_stake' and get_deck_win_stake() >= 10
+    end
 }

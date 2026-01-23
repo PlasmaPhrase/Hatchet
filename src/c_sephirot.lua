@@ -257,7 +257,7 @@ SMODS.Consumable {
         name = 'Chesed',
         text = {
             [1] = 'Select {C:attention}3{} cards, all cards',
-            [2] = 'each receive a {C:green}random{} enhancement'
+            [2] = 'receive a {C:green}random{} enhancement'
         }
     },
     cost = 3,
@@ -465,10 +465,14 @@ SMODS.Consumable {
     key = 'netzach',
     set = 'sephirot',
     pos = { x = 6, y = 0 },
+    config = { extra = { spectrals = 1}},
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.spectrals } }
+    end,
     loc_txt = {
         name = 'Netzach',
         text = {
-        [1] = 'Creates up to {C:attention}2{} random {C:spectral}Spectral{} cards',
+        [1] = 'Creates a random {C:spectral}Spectral{} card',
         [2] = '{C:inactive}(Must have room){}'
     }
     },
@@ -477,30 +481,28 @@ SMODS.Consumable {
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
-    atlas = 'CustomConsumables',use = function(self, card, area, copier)
-        local used_card = copier or card
-            for i = 1, math.min(2, G.consumeables.config.card_limit - #G.consumeables.cards) do
-            G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.4,
-            func = function()
-  
-            play_sound('timpani')
-            SMODS.add_card({ set = 'Spectral', })                            
-            used_card:juice_up(0.3, 0.5)
-            return true
-        end
-        }))
-    end
-    delay(0.6)
+    atlas = 'CustomConsumables',
 
-                      if created_consumable then
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_spectral'), colour = G.C.SECONDARY_SET.Spectral})
+    use = function(self, card, area, copier)
+        for i = 1, math.min(card.ability.extra.spectrals, G.consumeables.config.card_limit - #G.consumeables.cards) do
+            G.E_MANAGER:add_event(Event({
+                trigger = 'after',
+                delay = 0.4,
+                func = function()
+                    if G.consumeables.config.card_limit > #G.consumeables.cards then
+                        play_sound('timpani')
+                        SMODS.add_card({ set = 'Spectral' })
+                        card:juice_up(0.3, 0.5)
                     end
                     return true
+                end
+            }))
+        end
+        delay(0.6)
     end,
     can_use = function(self, card)
-        return true
+        return G.consumeables and #G.consumeables.cards < G.consumeables.config.card_limit or
+            (card.area == G.consumeables)
     end
 }
 
@@ -700,10 +702,10 @@ SMODS.Consumable {
     end
     delay(0.6)
 
-                      if created_consumable then
-                        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
-                    end
-                    return true
+    if created_consumable then
+        card_eval_status_text(context.blueprint_card or card, 'extra', nil, nil, nil, {message = localize('k_plus_consumable'), colour = G.C.PURPLE})
+    end
+    return true
     end,
     can_use = function(self, card)
         return true
