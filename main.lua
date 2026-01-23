@@ -1,4 +1,3 @@
--- Whoopsie! It should be v1.4.3, not v.1.4.4! My mistake.
 --ATLASES
 SMODS.Atlas({
     key = "modicon", 
@@ -59,6 +58,22 @@ SMODS.Atlas({
 })
 
 SMODS.Atlas({
+    key = "CustomStickers", 
+    path = "CustomStickers.png", 
+    px = 71,
+    py = 95, 
+    atlas_table = "ASSET_ATLAS"
+})
+
+SMODS.Atlas({
+    key = "CustomStakes", 
+    path = "CustomStakes.png",
+    px = 29,
+    py = 29, 
+    atlas_table = "ASSET_ATLAS"
+})
+
+SMODS.Atlas({
     key = "CustomBlinds", 
     path = "CustomBlinds.png", 
     px = 34,
@@ -73,22 +88,19 @@ to_big = to_big or function(a) return a end
 lenient_bignum = lenient_bignum or function(a) return a end
 
 --loading src files
+assert(SMODS.load_file("src/blinds.lua"))()
 assert(SMODS.load_file('src/jokers.lua'))()
 assert(SMODS.load_file("src/c_sephirot.lua"))()
 assert(SMODS.load_file("src/c_divine.lua"))()
-assert(SMODS.load_file("sounds.lua"))()
+assert(SMODS.load_file("src/sounds.lua"))()
+assert(SMODS.load_file("src/stakes.lua"))()
 assert(SMODS.load_file("src/backs.lua"))()
-assert(SMODS.load_file("src/blinds.lua"))()
 assert(SMODS.load_file("src/enhancements.lua"))()
 assert(SMODS.load_file("src/editions.lua"))()
 assert(SMODS.load_file("src/challenges.lua"))()
+assert(SMODS.load_file("src/stickers.lua"))()
+assert(SMODS.load_file("src/boosters.lua"))()
 
-local function load_boosters_file()
-    local mod_path = SMODS.current_mod.path
-    assert(SMODS.load_file("boosters.lua"))()
-end
-
-load_boosters_file()
 SMODS.ObjectType({
     key = "hatch_food",
     cards = {
@@ -140,7 +152,7 @@ SMODS.ConsumableType {
     primary_colour = HEX('484cdb'),
     secondary_colour = HEX('484cdb'),
     collection_rows = { 4, 5 },
-    shop_rate = 4,
+    shop_rate = 0,
     cards = {
         ['c_hatch_daat'] = true,
         ['c_hatch_soulofhatchet'] = true
