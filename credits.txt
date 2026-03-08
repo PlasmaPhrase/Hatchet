@@ -10,6 +10,7 @@ cassknows (divine shader)
 
 == Programming Help ==
 
+N'
 ThunderEdge
 nh6574
 Eremel

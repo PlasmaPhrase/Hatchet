@@ -82,11 +82,6 @@ SMODS.Atlas({
     atlas_table = "ANIMATION_ATLAS"
 })
 
--- idk what this does
-local NFS = require("nativefs")
-to_big = to_big or function(a) return a end
-lenient_bignum = lenient_bignum or function(a) return a end
-
 --loading src files
 assert(SMODS.load_file("src/blinds.lua"))()
 assert(SMODS.load_file('src/jokers.lua'))()
@@ -100,52 +95,6 @@ assert(SMODS.load_file("src/editions.lua"))()
 assert(SMODS.load_file("src/challenges.lua"))()
 assert(SMODS.load_file("src/stickers.lua"))()
 assert(SMODS.load_file("src/boosters.lua"))()
-
-SMODS.ObjectType({
-    key = "hatch_food",
-    cards = {
-        ["j_gros_michel"] = true,
-        ["j_egg"] = true,
-        ["j_ice_cream"] = true,
-        ["j_cavendish"] = true,
-        ["j_turtle_bean"] = true,
-        ["j_diet_cola"] = true,
-        ["j_popcorn"] = true,
-        ["j_ramen"] = true,
-        ["j_selzer"] = true
-    },
-})
-
-SMODS.ObjectType({
-    key = "hatch_hatch_jokers",
-    cards = {
-        ["j_hatch_airmissile"] = true,
-        ["j_hatch_blackjoker"] = true,
-        ["j_hatch_blueshoes"] = true,
-        ["j_hatch_cave"] = true,
-        ["j_hatch_composter"] = true,
-        ["j_hatch_d20"] = true,
-        ["j_hatch_etzchaim"] = true,
-        ["j_hatch_giraffe"] = true,
-        ["j_hatch_graveyardshift"] = true,
-        ["j_hatch_handout"] = true,
-        ["j_hatch_loveletter"] = true,
-        ["j_hatch_musketeer"] = true,
-        ["j_hatch_needlenonsense"] = true,
-        ["j_hatch_nightvision"] = true,
-        ["j_hatch_ninelives"] = true,
-        ["j_hatch_nodice"] = true,
-        ["j_hatch_pizza"] = true,
-        ["j_hatch_plantparty"] = true,
-        ["j_hatch_riskyrevolver"] = true,
-        ["j_hatch_staircase"] = true,
-        ["j_hatch_stockexchange"] = true,
-        ["j_hatch_sunset"] = true,
-        ["j_hatch_swindler"] = true,
-        ["j_hatch_trickyjoker"] = true,
-        ["j_hatch_wildside"] = true
-    },
-})
 
 SMODS.ConsumableType {
     key = 'divine',
@@ -208,3 +157,31 @@ SMODS.Rarity {
         return weight
     end,
 }
+
+--- Main Menu Colours (Credit to Cryptid and JoyousSpring)
+local game_main_menu_ref = Game.main_menu
+function Game:main_menu(change_context)
+    local ret = game_main_menu_ref(self, change_context)
+
+        local colours = { c1 = HEX("4d5670"), c2 = HEX("fd5f55") }
+        G.SPLASH_BACK:define_draw_steps({
+            {
+                shader = "splash",
+                send = {
+                    { name = "time",       ref_table = G.TIMERS, ref_value = "REAL_SHADER" },
+                    { name = "vort_speed", val = 0.4 },
+                    { name = "colour_1",   ref_table = colours,  ref_value = "c1" },
+                    { name = "colour_2",   ref_table = colours,      ref_value = "c2" },
+                },
+            },
+        })
+    return ret
+end
+
+-- Credit to NopeTooFast
+
+SMODS.current_mod.menu_cards = function()
+return {
+  { key = 'j_hatch_hatchet' },
+  remove_original = true
+} end
