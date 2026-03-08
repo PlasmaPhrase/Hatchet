@@ -143,7 +143,6 @@ SMODS.Blind {
         ['text'] = {
             [1] = 'Decrease play',
             [2] = 'size per discard',
-            [3] = '(resets after Boss is defeated)',
         },
     },
 
