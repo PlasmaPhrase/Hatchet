@@ -158,3 +158,23 @@ SMODS.Challenge {
         }
     }
 }
+
+-- Stock Market
+SMODS.Challenge {
+    key = 'stockmarket',
+    rules = {
+        modifiers = {
+            { id = 'dollars', value = 10 },
+        }
+    },
+    jokers = {
+        { id = 'j_hatch_slipperyslope', eternal = true },
+        { id = 'j_hatch_handsdown',   eternal = true },
+    },
+    loc_txt = {
+        ['name'] = 'Stock Market',
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+}

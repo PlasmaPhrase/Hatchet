@@ -2724,7 +2724,7 @@ SMODS.Joker {
 
 -- Hands Down
 SMODS.Joker {
-    key = "Hands Down",
+    key = "handsdown",
     config = { extra = { xmult = 0.5, h_size = 4 } },
     loc_txt = {
         ['name'] = 'Hands Down',
@@ -3736,7 +3736,7 @@ SMODS.Joker({
 
 -- Soured Milk
 SMODS.Joker({
-    key = "souredmilk",
+    key = "sourmilk",
     config = { extra = { dollar = 1, limit = 20 } },
     loc_txt = {
         ["name"] = "Soured Milk",
