@@ -98,7 +98,7 @@ SMODS.Consumable {
         }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -179,7 +179,7 @@ SMODS.Consumable {
         }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -261,7 +261,7 @@ SMODS.Consumable {
         }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -350,7 +350,7 @@ SMODS.Consumable {
     }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -389,7 +389,7 @@ SMODS.Consumable {
     }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -477,7 +477,7 @@ SMODS.Consumable {
     }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -518,7 +518,7 @@ SMODS.Consumable {
     }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -599,7 +599,7 @@ SMODS.Consumable {
     }
     },
     cost = 3,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
@@ -681,7 +681,7 @@ SMODS.Consumable {
     }
     },
     cost = 1,
-    unlocked = false,
+    unlocked = true,
     discovered = false,
     hidden = false,
     can_repeat_soul = false,
