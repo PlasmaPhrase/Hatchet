@@ -312,7 +312,8 @@ return {
                 name = "Sunset",
                 text = {
                     "{X:chips,C:white}X#1#{} Chips",
-                    "in the {C:attention}first hand{} of round",
+                    "in the {C:attention}first hand{}",
+                    "of round"
                 },
             },
             j_hatch_pizza = {
@@ -1287,6 +1288,41 @@ return {
                     "becomes {C:attention}Sulfur Cards{}",
                 },
             },
+            j_hatch_eightone = {
+                name = "Windows 8.1",
+                text = {
+                    "Played {C:attention}8s{}",
+                    "permanently gain",
+                    "{C:red}+#1#{} Mult"
+                },
+            },
+            j_hatch_winnt5 = {
+                name = "Windows NT5",
+                text = {
+                    {
+                    "First played {C:attention}5{}",
+                    "gives {X:mult,C:white} X#1# {} Mult",
+                    "when scored",
+                    },
+                    {
+                    "{C:inactive}Warning, very loud!{}"
+                    }
+                },
+            },
+            j_hatch_mint = {
+                name = "Linux Mint",
+                text = {
+                    {
+                    "Gain {C:red}+#2#{} Mult per",
+                    "{C:attention}successful probability{}",
+                    "Lose {C:red}-#2#{} Mult per",
+                    "{C:attention}unsuccessful{} probability",
+                    },
+                    {
+                    "{C:inactive}(Currently{} {C:red}+#1#{} {C:inactive}Mult)"
+                    }
+                },
+            },
         }, -- Sephirot (Cards) starts below
         hatch_sephirot = {
             c_hatch_kether = {
@@ -1716,11 +1752,24 @@ return {
             },
         }, -- Sleeves starts below
         Sleeve = {
-            sleeve_hatch_chevron = {
+            sleeve_hatch_Chevron = {
                 name = "Chevron Sleeve",
                 text = {
                     "{C:attention}-2{} hand size",
                     "{C:red}+2{} discards every round"
+                }
+            },
+            sleeve_hatch_Holy = {
+                name = "Holy Sleeve",
+                text = {
+                    "{C:green}Sephirot{} cards may",
+                    "appear in the shop,",
+                }
+            },
+            sleeve_hatch_Harlequin = {
+                name = "Harlequin Sleeve",
+                text = {
+                    "{C:attention}+1{} booster pack per shop",
                 }
             },
         }

@@ -3,6 +3,7 @@ local basecrossmod = {
 	next(SMODS.find_mod('RevosVault')) and 'revosvault.lua',
 	next(SMODS.find_mod('Incognito')) and 'incognito.lua',
 	next(SMODS.find_mod('CardSleeves')) and 'sleeves.lua',
+	next(SMODS.find_mod('TOGAPack')) and 'toga.lua'
     --e.g. next(SMODS.find_mod('Smallpox')) and 'smallpox.lua',
 }
 

@@ -235,14 +235,12 @@ SMODS.Booster {
 end
 }
 
--- Sephirot Packs (Normal)
+-- Divine Pack
 SMODS.Booster {
     key = "divine_pack",
     weight = 0.1,
     atlas = "HatchetBoosters",
-    loc_txt = {
-        group_name = "Divine Pack"
-    },
+    loc_txt = { group_name = "Divine Pack" },
     cost = 5,
     pos = { x = 4, y = 0 },
     config = { extra = 3, choose = 1 },

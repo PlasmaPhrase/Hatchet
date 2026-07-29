@@ -2,16 +2,16 @@ HATCH = SMODS.current_mod
 
 --ATLASES
 SMODS.Atlas({
-    key = "modicon", 
-    path = "ModIcon.png", 
+    key = "modicon",
+    path = "ModIcon.png",
     px = 34,
     py = 34,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "balatro", 
-    path = "balatro.png", 
+    key = "balatro",
+    path = "balatro.png",
     px = 333,
     py = 216,
     prefix_config = { key = false },
@@ -20,83 +20,92 @@ SMODS.Atlas({
 
 
 SMODS.Atlas({
-    key = "HatchetJokers", 
-    path = "HatchetJokers.png", 
+    key = "HatchetJokers",
+    path = "HatchetJokers.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetConsumables", 
-    path = "HatchetConsumables.png", 
+    key = "HatchetConsumables",
+    path = "HatchetConsumables.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetBoosters", 
-    path = "HatchetBoosters.png", 
+    key = "HatchetBoosters",
+    path = "HatchetBoosters.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetEnhancements", 
-    path = "HatchetEnhancements.png", 
+    key = "HatchetEnhancements",
+    path = "HatchetEnhancements.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetDecks", 
-    path = "HatchetDecks.png", 
+    key = "HatchetDecks",
+    path = "HatchetDecks.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetStickers", 
-    path = "HatchetStickers.png", 
+    key = "HatchetStickers",
+    path = "HatchetStickers.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetStakes", 
+    key = "HatchetStakes",
     path = "HatchetStakes.png",
     px = 29,
-    py = 29, 
+    py = 29,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({
-    key = "HatchetBlinds", 
-    path = "HatchetBlinds.png", 
+    key = "HatchetBlinds",
+    path = "HatchetBlinds.png",
     px = 34,
-    py = 34, 
-    frames = 21, 
+    py = 34,
+    frames = 21,
     atlas_table = "ANIMATION_ATLAS"
 })
 
 SMODS.Atlas({ -- Crossmod Content
-    key = "HatchetCrossJokers", 
-    path = "HatchetCrossJokers.png", 
+    key = "HatchetCrossJokers",
+    path = "HatchetCrossJokers.png",
     px = 71,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
 SMODS.Atlas({ -- Crossmod Content
-    key = "HatchetCrossSleeves", 
-    path = "HatchetCrossSleeves.png", 
+    key = "HatchetCrossConsumables",
+    path = "HatchetCrossConsumables.png",
+    px = 71,
+    py = 95,
+    atlas_table = "ASSET_ATLAS"
+})
+
+
+SMODS.Atlas({ -- Crossmod Content
+    key = "HatchetCrossSleeves",
+    path = "HatchetCrossSleeves.png",
     px = 73,
-    py = 95, 
+    py = 95,
     atlas_table = "ASSET_ATLAS"
 })
 
@@ -142,7 +151,10 @@ SMODS.ConsumableType {
     loc_txt = {
         name = "Divine",
         collection = "Divine Cards",
-    }
+    },
+    select_card = function(self, card, pack)
+        return "consumeables"
+    end
 }
 
 --- Main Menu Colours (Credit to Cryptid and JoyousSpring)
@@ -150,18 +162,18 @@ local game_main_menu_ref = Game.main_menu
 function Game:main_menu(change_context)
     local ret = game_main_menu_ref(self, change_context)
 
-        local colours = { c1 = HEX("4d5670"), c2 = HEX("fd5f55") }
-        G.SPLASH_BACK:define_draw_steps({
-            {
-                shader = "splash",
-                send = {
-                    { name = "time",       ref_table = G.TIMERS, ref_value = "REAL_SHADER" },
-                    { name = "vort_speed", val = 0.4 },
-                    { name = "colour_1",   ref_table = colours,  ref_value = "c1" },
-                    { name = "colour_2",   ref_table = colours,      ref_value = "c2" },
-                },
+    local colours = { c1 = HEX("4d5670"), c2 = HEX("fd5f55") }
+    G.SPLASH_BACK:define_draw_steps({
+        {
+            shader = "splash",
+            send = {
+                { name = "time",       ref_table = G.TIMERS, ref_value = "REAL_SHADER" },
+                { name = "vort_speed", val = 0.4 },
+                { name = "colour_1",   ref_table = colours,  ref_value = "c1" },
+                { name = "colour_2",   ref_table = colours,  ref_value = "c2" },
             },
-        })
+        },
+    })
     return ret
 end
 
@@ -178,7 +190,8 @@ SMODS.current_mod.optional_features = {
 
 -- Credit to NopeTooFast
 SMODS.current_mod.menu_cards = function()
-return {
-  { key = 'j_hatch_hatchet' },
-  remove_original = true
-} end
+    return {
+        { key = 'j_hatch_hatchet' },
+        remove_original = true
+    }
+end

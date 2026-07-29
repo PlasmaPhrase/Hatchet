@@ -2672,11 +2672,13 @@ SMODS.Joker({
             }
         end
         if context.after then
-            SMODS.destroy_cards(context.full_hand, nil, nil, true)
-            return {
-                message = "Destroyed!",
-                colour = G.C.RED,
-            }
+            if next(context.poker_hands['Flush']) then
+                SMODS.destroy_cards(context.full_hand, nil, nil, true)
+                return {
+                    message = "Destroyed!",
+                    colour = G.C.RED,
+                }
+            end
         end
     end
 })
