@@ -1737,8 +1737,8 @@ return {
             p_hatch_sephirot_mega_1 = {
                 name = "Sephirot Pack",
                 text = {
-                    "Choose {C:attention}#1#{} of up to",
-                    "{C:attention}#2#{C:green} Sephirot{} cards to",
+                    "Choose {C:attention}#2#{} of up to",
+                    "{C:attention}#3#{C:green} Sephirot{} cards to",
                     "be used immediately",
                 },
             },

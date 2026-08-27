@@ -2638,6 +2638,10 @@ SMODS.Joker({
     add_to_deck = function(self, card, context)
         G.GAME.modifiers.booster_size_mod = (G.GAME.modifiers.booster_size_mod or 0) + 1
     end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.GAME.modifiers.booster_size_mod = (G.GAME.modifiers.booster_size_mod or 0) - 1
+    end,
 })
 
 -- Hearts and Minds
